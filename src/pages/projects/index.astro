@@ -6,6 +6,7 @@ import "@fontsource-variable/exo-2";
 import PageDirectory from "../../components/PageDirectory.astro";
 import SearchBar from "../../components/SearchBar";
 import MainPage from "../../components/MainPage.astro";
+import "../styles/mdx.css";
 const projects = await Astro.glob("./*.mdx");
 ---
 
@@ -26,7 +27,7 @@ const projects = await Astro.glob("./*.mdx");
           <SearchBar client:load projects={projects} hasLogo={true} />
         </div>
         <div style="height: 75%; width: 50%;">
-          <PageDirectory projects={projects} fullSize hasLogo style="width: 100%;" />
+          <PageDirectory projects={projects} fullSize hasLogo />
         </div>
       </div>
     </MainPage>
