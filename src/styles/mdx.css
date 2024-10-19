@@ -34,6 +34,10 @@ a {
     text-decoration: none;
 }
 
+.hideable{
+    width: 20vw;
+}
+
 .resize {
     left: 21.2vw;
     width: 54.6vw;
@@ -43,7 +47,7 @@ a {
     width: 44.6vw;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 600px) {
     .hideable {
         display: none;
     }

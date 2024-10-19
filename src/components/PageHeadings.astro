@@ -3,6 +3,7 @@ const { headings } = Astro.props;
 ---
 
 <ul
+  class="hideable"
   style="width: 22%; overflow-y: auto; height: 95.9vh; position: fixed; top: -1.6%; left: 76%; padding: 20px; background-color: #000000; color: #ffffff; min-height: 100vh; overflow-y: auto; border-color: #ffffff; border-width: 1px; border-style: solid"
 >
   {
@@ -14,7 +15,7 @@ const { headings } = Astro.props;
             heading.depth * 20 +
             "px; margin-top: " +
             heading.depth * 10 +
-            "px;"
+            "px; color: #ffffff; font-family: 'Expletus Sans Variable', system-ui;"
           }
           href={`#${heading.slug}`}
         >
