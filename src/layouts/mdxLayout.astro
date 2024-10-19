@@ -27,7 +27,7 @@ let hasLogo = frontmatter.logo !== undefined;
     <title>{frontmatter.title + " | Thomas Lower Database Portfolio"}</title>
   </head>
   <body
-    style="margin: 0; padding: 0; border-width: 0; min-height: 100vh; overflow-x:hidden"
+    style="margin: 0; padding: 0; border-width: 0; min-height: 100vh; overflow-x:hidden; width:100vw"
   >
     <PageDirectory
       projects={projects}
@@ -51,7 +51,7 @@ let hasLogo = frontmatter.logo !== undefined;
       class="resize resize2"
       style="border-style: solid;position: absolute; top: 22vh; min-height: 90vh; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px; padding: 0; margin-bottom: 20%;"
     >
-      <div style="padding-left: 10%; padding-right: 10%; background-color: #ff0000">
+      <div style="padding-left: 10%; padding-right: 10%;">
         <slot />
         <div
           style="display: flex; flex-direction: row; align-items: start; justify-content: center; margin-top: 5%; margin-left: 20%; margin-right: 25%; flex-wrap:wrap;"
