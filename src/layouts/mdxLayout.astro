@@ -6,7 +6,6 @@ import PageDirectory from "../components/PageDirectory.astro";
 import PageHeadings from "../components/PageHeadings.astro";
 import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar.astro";
-import { undefined } from "astro:schema";
 const { frontmatter, headings } = Astro.props;
 let projects;
 if (frontmatter.url.includes("guides")) {
