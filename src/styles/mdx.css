@@ -43,9 +43,6 @@ a {
     width: 54.6vw;
 }
 
-.resize2 {
-    width: 44.6vw;
-}
 
 @media (max-width: 600px) {
     .hideable {
@@ -55,7 +52,4 @@ a {
         width: 100vw;
         left: 0vw;
     }
-    .resize2 {
-        width: 100vw;
-}
 }
