@@ -11,7 +11,7 @@ const { projects, fullSize, hasLogo } = Astro.props;
     projects.map((project: any) => (
       <a
         href={project.url}
-        style="width: 50%; color: #ffffff; font-family: 'Expletus Sans Variable', system-ui;display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 10px; background-color: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px"
+        style="width: 50%; text-align: center; color: #ffffff; font-family: 'Expletus Sans Variable', system-ui;display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 10px; background-color: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px"
       >
         {hasLogo && (
           <img
