@@ -33,3 +33,25 @@ a {
     color: #ff00ff;
     text-decoration: none;
 }
+
+.resize {
+    left: 21.2vw;
+    width: 54.6vw;
+}
+
+.resize2 {
+    width: 44.6vw;
+}
+
+@media (max-width: 1000px) {
+    .hideable {
+        display: none;
+    }
+    .resize {
+        width: 100vw;
+        left: 0vw;
+    }
+    .resize2 {
+        width: 90vw;
+}
+}
