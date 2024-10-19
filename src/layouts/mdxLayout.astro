@@ -39,17 +39,18 @@ let hasLogo = frontmatter.logo !== undefined;
     >
       <Navbar />
     </div>
-    <div
-      class="resize"
-      style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 5vh; height: 10vh; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
-    >
-      <SearchBar client:load projects={projects} hasLogo={hasLogo} />
-    </div>
+
     <main
       class="resize resize2"
       style="border-style: solid;position: absolute; top: 20vh; min-height: 69.8vh; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px; padding:0; padding-bottom: 10vh; overflow-y: auto;"
     >
       <div style="padding-left: 10%; padding-right: 10%;">
+        <div
+          class="resize"
+          style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 5vh; height: 10vh; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
+        >
+          <SearchBar client:load projects={projects} hasLogo={hasLogo} />
+        </div>
         <slot />
         <div
           style="width: 100%;display: flex; flex-direction: row; align-items: start; justify-content: center; margin-top: 5%; flex-wrap:wrap;"
