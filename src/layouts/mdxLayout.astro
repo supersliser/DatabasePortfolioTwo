@@ -51,21 +51,23 @@ let hasLogo = frontmatter.logo !== undefined;
       class="resize resize2"
       style="border-style: solid;position: absolute; top: 22vh; min-height: 90vh; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px;"
     >
-      <slot />
-      <div
-        style="display: flex; flex-direction: row; align-items: start; justify-content: center; margin-top: 5%; margin-left: 20%; margin-right: 25%; flex-wrap:wrap;"
-      >
-        {
-          frontmatter.tags &&
-            frontmatter.tags.map((tag: string) => (
-              <a
-                style="margin: 0px; padding: 0px; margin-left:10px"
-                href={frontmatter.slug}
-              >
-                #{tag}
-              </a>
-            ))
-        }
+      <div style="padding-left: 10%; padding-right: 10%;">
+        <slot />
+        <div
+          style="display: flex; flex-direction: row; align-items: start; justify-content: center; margin-top: 5%; margin-left: 20%; margin-right: 25%; flex-wrap:wrap;"
+        >
+          {
+            frontmatter.tags &&
+              frontmatter.tags.map((tag: string) => (
+                <a
+                  style="margin: 0px; padding: 0px; margin-left:10px"
+                  href={frontmatter.slug}
+                >
+                  #{tag}
+                </a>
+              ))
+          }
+        </div>
       </div>
     </main>
   </body>
