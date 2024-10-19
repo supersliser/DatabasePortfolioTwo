@@ -1,16 +1,21 @@
 ---
-
+import Navbar from "../components/Navbar.astro";
+// Supports weights 400-700
+import "@fontsource-variable/expletus-sans";
+// Supports weights 100-900
+import "@fontsource-variable/exo-2";
+import MainPage from "../components/MainPage.astro";
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Thomas Lower</title>
+  </head>
+  <body style="margin: 0; padding: 0; border-width: 0;">
+	<MainPage />
+  </body>
 </html>

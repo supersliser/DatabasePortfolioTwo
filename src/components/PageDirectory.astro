@@ -1,0 +1,25 @@
+---
+const { projects, fullSize } = Astro.props;
+---
+
+<ul
+  style={fullSize
+    ? "width: 100%; margin: 0; padding: 0"
+  :"overflow-y: auto; height: 95.9vh; width: 20%; position: fixed; top: -1.6%; left: 0%; padding: 20px; background-color: #000000; color: #ffffff; border-color: #ffffff; border-width: 1px; border-style: solid"}
+>
+  {
+    projects.map((project: any) => (
+      <a
+        href={project.url}
+        style="font-family: 'Expletus Sans Variable', system-ui;display: flex; flex-direction: row; justify-content: center; align-items: center; margin-top: 10px; background-color: rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px"
+      >
+        <img
+          src={"/Logos/" + project.frontmatter.logo}
+          alt={"logo for " + project.frontmatter.title}
+          style="width: 30px; height: 30px; margin-right: 10px;"
+        />
+        {project.frontmatter.title}
+      </a>
+    ))
+  }
+</ul>

@@ -1,0 +1,50 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Vernos Langathripoodinary III
+tags: [
+    Solo, 3D Art, 3D Modelling, 3D Texturing, Blender, Maya, Houdini, Substance Painter, Substance Designer, Character, Sculpting, Personal Project
+]
+created: 2024-04-16
+authors: [
+    Thomas Lower
+]
+logo: vernos.webp
+---
+import MDXImage from "../../components/MDXImage.astro"
+import VernosModel from "../../images/vernosModel.webp"
+import VernosMakeup from "../../images/vernosMakeup.webp"
+import VernosClothing from "../../images/vernosClothing.webp"
+import VernosRender from "../../images/vernosRender.webp"
+
+
+# {frontmatter.title}
+>Created on: 16/04/2024<br/>
+>Worked on by: {frontmatter.authors}
+
+**This was the first test of my own character creation pipeline**
+
+To view the full art station entry, please click [here](https://www.artstation.com/artwork/n0n4er).
+
+## Process
+
+The first step was to generate the base mesh, this was imported into [Blender](https://www.blender.org/). Where the softwares sculpt tools were used to give more definition to extremities and create a sense of "sharpness" about the face and body.
+
+<MDXImage src={VernosModel} alt="The sculpted model of Vernos in Blender" />
+
+The next step was to export the model to [Adobe Substance Painter](https://www.adobe.com/products/substance3d/apps/painter.html?sdid=JZBJVTGW&mv=search&mv2=paidsearch&gad_source=1&gclid=Cj0KCQjw3ZayBhDRARIsAPWzx8r_yq2Seq2_hHGmwy8_jZE7jfcrpixWIDVmN9RJXbS8_mlNUO3MlRoaAkoREALw_wcB) so that it could be UVed and Textured. I chose to focus on the makeup of the face with this project.
+
+<MDXImage src={VernosMakeup} alt="A screenshot from substance painter of the face" />
+
+A lesser-known software called [Accurig](https://actorcore.reallusion.com/auto-rig/accurig) was then used to generate a skeleton for this character, after which it was exported to [Autodesk Maya](https://www.autodesk.com/uk/products/maya/free-trial) to be converted to a fully functional rig
+
+Maya was also used to generate the animation keyframes
+
+The animation was then exported to [Marvelous Designer](Marvelous Designer) where the model had its costume designed and animated using the software's own physics system.
+
+<MDXImage src={VernosClothing} alt="An image of the character in its rest pose with the clothing fully developed." />
+
+Finally, the model was exported to [SideFX Houdini](https://www.sidefx.com/products/houdini/) where it the software's own hair system was used, after which the model was also rendered in Houdini using the Mantra engine.
+
+## Result
+
+<MDXImage src={VernosRender} alt="A still frame rendered in Houdini after the character was completed." />

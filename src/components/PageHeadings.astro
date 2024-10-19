@@ -1,0 +1,26 @@
+---
+const { headings } = Astro.props;
+---
+
+<ul
+  style="width: 22%; position: fixed; top: -1.6%; left: 76%; padding: 20px; background-color: #000000; color: #ffffff; min-height: 100vh; overflow-y: auto; border-color: #ffffff; border-width: 1px; border-style: solid"
+>
+  {
+    headings?.map((heading: any) => (
+      <li style="display: flex; flex-direction: row; justify-content: space-between; align-items: center; font-family: 'Expletus Sans Variable', system-ui;">
+        <a
+          style={
+            "margin-left: " +
+            heading.depth * 20 +
+            "px; margin-top: " +
+            heading.depth * 10 +
+            "px;"
+          }
+          href={`#${heading.slug}`}
+        >
+          {heading.text}
+        </a>
+      </li>
+    ))
+  }
+</ul>

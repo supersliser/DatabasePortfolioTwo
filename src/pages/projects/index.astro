@@ -1,0 +1,36 @@
+---
+import Navbar from "../../components/Navbar.astro";
+// Supports weights 400-700
+import "@fontsource-variable/expletus-sans";
+// Supports weights 100-900
+import "@fontsource-variable/exo-2";
+import PageDirectory from "../../components/PageDirectory.astro";
+import SearchBar from "../../components/SearchBar";
+import MainPage from "../../components/MainPage.astro";
+const { frontmatter, headings } = Astro.props;
+const projects = await Astro.glob("./*.mdx");
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Database | Thomas Lower</title>
+  </head>
+  <body style="margin: 0; padding: 0; border-width: 0; overflow-x:hidden">
+    <MainPage>
+      <div
+        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 10%;position: absolute; top: 100vh; left: 0; width: 100vw; min-height: 100vh; padding-bottom: 40vh; background-color: #000000; color: #ffffff;"
+      >
+        <div style="height: 25%; width: 100%;">
+          <SearchBar client:load projects={projects} />
+        </div>
+        <div style="height: 75%; width: 50%;">
+          <PageDirectory projects={projects} fullSize />
+        </div>
+      </div>
+    </MainPage>
+  </body>
+</html>
