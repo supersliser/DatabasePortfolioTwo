@@ -28,7 +28,8 @@ body {
   padding: 0;
   border-width: 0;
   min-height: 100vh;
-  overflow-x: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
   width: 100vw;
   box-sizing: border-box; /* Add this line */
   background-color: rgba(0,0,0,0);
