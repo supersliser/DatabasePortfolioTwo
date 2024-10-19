@@ -43,13 +43,13 @@ let hasLogo = frontmatter.logo !== undefined;
     </div>
     <div
       class="resize"
-      style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 7vh; height: 10%; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
+      style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 7vh; height: 10vh; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
     >
       <SearchBar client:load projects={projects} hasLogo={hasLogo} />
     </div>
     <main
       class="resize resize2"
-      style="border-style: solid;position: absolute; top: 22vh; min-height: 90%; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px;"
+      style="border-style: solid;position: absolute; top: 22vh; min-height: 90vh; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px;"
     >
       <slot />
       <div
