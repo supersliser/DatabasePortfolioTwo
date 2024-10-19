@@ -1,0 +1,395 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: C#
+---
+
+# The Basics of C Sharp
+
+## Fundamental Concepts
+
+### Sequence
+
+The principle of sequence is the idea that any numbered line cannot be processed before any previous line. Unless a line before executes a command that forces this.
+
+Within C#, commands are not separated by lines. They are instead separated by either:
+```cs
+; {}
+```
+The former semicolon is used to specify the end of a command or process. It is also used to declare a [variable](#assignment) and instanciate an object.
+```cs
+var example = "Hello World";
+Console.WriteLine(example);
+```
+The latter curled braces are used to specify a block of code that is effected by either [selection](#selection) or [iteration](#iteration).
+```cs
+Do
+{
+    Console.WriteLine("I am inside the loop");
+} While (true);
+Console.WriteLine("I am outside the loop");
+```
+
+
+
+The principle of sequence can be overridden and ignored if necessary by the 
+```cs
+GoTo
+```
+command.
+
+This can either move to a specified line number, or label (identifier followed by a comma)
+```cs
+exampleLabel:
+    Console.WriteLine("TestCode");
+```
+
+The *break;* keywork can also be used to override sequence in that it breaks from a loop or enclosed statement within *`{}`*
+```cs
+Do
+{
+    break;
+    Console.WriteLine("This will never execute");
+}
+Console.WriteLine("This will execute");
+```
+
+
+### Assignment
+
+#### The Basics Of Variables
+
+Assignment is the concept of creating a temporary storage within ram to store data during the execution of the program.
+
+A variable has 3 main components:
+
+- identifier
+- type
+- data
+
+The identifier is the name of the variable. In the below example it is the word *text*;
+```cs
+string text = "Hello World";
+```
+The identifier is used whenever you wish to reference the variable. To enter new data, or retrieve the data stored within the variable
+
+To enter new data, use a single `=` operator
+```cs
+text = "This is being stored in the variable";
+```
+To access the data stored within the variable, enter the identifier in the location you wish to use the data
+```cs
+Console.WriteLine(text);
+/// will be the same as
+Console.WriteLine("This is being stored in the variable");
+```
+> Note: The identifier must be a whole word and cannot be the same as an existing command word or data type. There are 2 conventions for using identifiers with multiple words.
+> 1. CamelCase. Where each word begins with a Capital Letter (this is recommended by Microsoft and is the convention within C#)
+> 2. underscore. Where spaces are represented as `_` characters
+
+The type refers to the type of data stored in the variable. The types can be viewed by clicking [here](#data-types). Within the above example, the type is the term *string*;
+
+The data is the actual information that is stored within the variable. While it is not necessary to declare data upon creating the variable, it is highly recommended in order to avoid errors;
+
+#### Data types
+
+A data type refers to the type of data stored in the variable. There are 5 universally recognised strong data types. These are basic types that are available in every programming language
+
+- [Integer](#integer)
+- [Real](#real)
+- [Boolean](#boolean)
+- [Char](#char)
+- [String](#string)
+
+##### Integer
+
+An integer is a whole number either positive or negative. Most programming languages implement Integers as an INT32. This means that 32 bits or 8 bytes are assigned to the variable to store the number. Giving a possible range of `-2,147,483,648 to +2,147,483,647`.
+An integer can be either signed or unsigned. A signed integer can be either positive or negative, while unsigned integers can only be positive
+
+> Note: Within programming, 0 is considered both positive and even. This means that 0 is the lowest unsigned number you can have.
+
+Within C#, an integer is declared using 
+```cs
+int variableName = 0;
+```
+An unsigned integer is declared using
+```cs
+uint variableName = 0;
+```
+if you wish to assign less or more bits to a number (either 16 or 64) then you can use
+```cs
+short smallerNumber = 0;
+long longerNumber = 0;
+```
+The above rule with `u` for unsigned applies to these as well
+```cs
+ushort unsignedSmallerNumber = 0;
+ulong unsignedLongerNumber = 0;
+```
+
+##### Real
+
+A real is a fractional number either positive or negative. There are multiple different formats available for this. While the double is less precise, it is faster to access. The opposite is true for floats.
+```cs
+double lessPreciseDecimal = 0.5;
+float morePreciseDecimal = 0.5f;
+```
+> Note: float numbers should be defined with an *f* after the number to specify that it is floating point decimal rather than integer or fixed point decimal.
+
+##### Boolean
+
+A boolean is a simple true or false. This can also be written as 1 or 0;
+> Within C#, boolean actually has 3 possible forms of data: true, false or null;
+```cs
+bool variableName = true;
+bool variableName = false;
+```
+
+##### Char
+
+A Char is a single character. This includes every letter, number and symbol. Every programming language will give support for all Extended-ASCII characters, and most give support for UCF-8 characters as well. This means you can use characters with accents or characters from other alphabets inside a char datatype.
+
+> `""` is known as an empty char, it is a get out to avoid a null char as it technically counts as data.
+
+```cs
+char variableName = "a";
+char variableName = "A";
+char variableName = " ";
+char variableName = "3";
+char variableName = "";
+char variableName = ";";
+```
+
+##### String
+
+A string is nothing more than an [array]() of [chars](#char)
+
+```cs
+string variableName = "word";
+string variableName = "Multiple words. 2 to be Precise.";
+```
+
+### Selection
+
+#### Structures
+
+Selection is the process of running different blocks of code based on a boolean condition. Where 1 block of code is run on true, while the other is run on false.
+```cs
+if (value == true)
+{
+    Console.WriteLine("This will run if value is true");
+}
+else
+{
+    Console.WriteLine("This will run if value is false");
+}
+/// because the if statement simply reads the boolean value, the above could be shortened to
+if (value)
+{
+    Console.WriteLine("This will run if value is true");
+}
+else
+{
+    Console.WriteLine("This will run if value is false");
+}
+```
+an if statement can have multiple blocks based on a condition using else if
+```cs
+if (value == 1)
+{
+    Console.WriteLine("This will run if value 1");
+}
+else if (value == 2)
+{
+    Console.WriteLine("This will run if value is 2");
+}
+else
+{
+    Console.WriteLine("This will run if value is any other value");
+}
+```
+> Note: selection statements still follow the principle of [sequence](#sequence). Meaning that else if statments must superscede an else statement as else statements are all encompasing
+
+In the event of a large amount of testable conditions it can be preferable to employ a select-case statement rather than an if statement.
+```cs
+switch (value)
+{
+    case == 1:
+        Console.WriteLine("This will run if value 1");
+        break;
+    case == 2:
+        Console.WriteLine("This will run if value is 2");
+        break;
+    case else:
+        Console.WriteLine("This will run if value is any other value");
+        break;
+}
+```
+
+It is possible to next selection operations so that an if statement is within another if statement or a case statement
+```cs
+if (value == 1)
+{
+    if (value2 == 1)
+    {
+        Console.Writeline("This will run if both value 1 and value 2 are 1");
+    }
+}
+```
+
+#### Operators
+
+there are 6 main operators which can be used to compare values and return a boolean based on the result of the comparison:
+
+- == - returns true if both values are the **same** value and type
+- &lt;  - returns true if the first value is **less** than the second value
+- &lt;= - returns true if the first value is **less** than or equal to the second value
+- &gt;  - returns true if the first value is **more** than the second value
+- &gt;= - returns true if the first value is **more** than or equal to the second value
+- != - returns true if both values are **not** the **same** value and type
+
+### Iteration
+
+Iteration is the process of looping over and repeating a block of code for either an established or un-established number of times.
+Loops are split into 2 types conditional or unconditional
+
+#### Unconditional Loops
+
+Unconditional loops will repeat for a pre-established number of times. This takes the form of a for loop
+The for loop is split into 3 parts:
+- initialiser
+- condition
+- iterator
+
+The initialiser creates a new variable to store the current loop counts
+The condition checks whether the loop has iterated the required number of times
+The iterator increments the loop count when it loops
+```cs
+for (int i = 0; i < 5; i++)
+{
+    Console.WriteLine("This will be executed 5 times");
+}
+```
+The iterator variable can be accessed by the code within the loop
+```cs
+for (int i = 0; i < 5; i++)
+{
+    Console.WriteLine(i);
+}
+```
+
+#### Conditional Loops
+
+Conditional loops will repeat until a condition is true. This can therefore theoretically loop infinitely.
+
+There are 2 types of Conditional Loop. Test Before and Test after
+
+##### While Loops
+
+A While loop, also known as a Test Before loop will check a condition before executing the iteration. Meaning the code will run 0 or more times
+```cs
+While (Condition == true)
+{
+    Console.WriteLine("This value will display while condition is true");
+}
+```
+
+##### Do Loops
+
+A Do loop, also known as a test after loop will check a condition after executing the iteration. Meaning the code will run 1 or more times
+```cs
+Do
+{
+    Console.WriteLine("This value will display while condition is true");
+} While (Condition == true);
+```
+
+## Advanced Concepts
+
+### Enumerables
+
+#### Arrays
+
+An array is essentially a list of variables with a predefined length. An array is defined similar to a normal variable however with a `[]` after the type.
+```cs
+int[] integerArray = new int[5];
+```
+Notice how this array must be instanciated with the `new` keyword. This defines the size of the array with the number inside the square brackets and assignes it the required memory.
+
+> Note: It is technically possible to redefine the size of an array however this is extremely inefficient and should be avoided at all costs, if a variable size is needed, a List or Linked List should be used.
+
+#### Lists
+
+A List or Linked List is a list of variables with a variable length. This is defined as a list of a type.
+```cs
+List<int> integerList = new List<int>();
+```
+Notice the brackets at the end of the instanciator, this is because the instanciator is considered a function.
+
+While Lists can have a variable size, they are much slower to access. Arrays are faster to access but must have their size pre-defined.
+
+### Computational Thinking Concepts
+
+When planning a program, 4 main computational models can be used together to define it properly.
+- [Algorithm](#algorithm)
+- [Decomposition](#decomposition)
+- [Abstraction](#abstraction)
+- [Pattern Recognition](#pattern-recognition)
+
+#### Algorithm
+
+Algorithm or Algorithmic Thinking is the idea that any computational problem can be represented using mathematics and logic.
+
+#### Decomposition
+
+Decomposition is the process of breaking a problem into a series of sub-problems to a point where each sub-problem can be represented as one of 4 [basic computational concepts](#fundamental-concepts)
+
+#### Abstraction
+
+Abstraction is the process of ignoring useless information and deciding which parts of the information are useful to solving the problem. 
+
+An example of such would be that to work out someones age, their eye colour is not important information, therefore can be ignored.
+
+#### Pattern Recognition
+
+Pattern recognition is the process of avoiding using repeating code. Computer Science is a science because it is mathematical, therefore there is a mathematically faster way to do something. Therefore, rather that rewriting code, it can simply be imported and used within your own work
+
+### Modularisation
+
+A module is a block of code that can be referenced by an identifier and executed multiple times. This can also be known as a method or subroutine.
+
+Furthermore, if the module returns a value then it is known as a function.
+```cs
+public void mainModule()
+{
+    Console.WriteLine(functionOne());
+}
+
+public string functionOne()
+{
+    return "This will be returned when this function is called";
+}
+```
+
+> Note: A function is defined by brackets at the end of the identifier.
+
+A void subroutine is a module which returns no value.
+`functionOne` is designated to return a string and thus needs a `return` statement to define the value that it will return.
+
+A module can also have a value passed to it.
+```cs
+public void mainModule()
+{
+    Console.WriteLine(functionOne(5) + functionOne(3));
+}
+
+public int functionOne(int number)
+{
+    int output = 0;
+    for (int i = 1; i < number; i++)
+    {
+        output = output + i
+    }
+    return output
+}
+```
+This will add 10 to 6 and display the result.

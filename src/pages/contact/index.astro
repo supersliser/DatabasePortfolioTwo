@@ -1,0 +1,50 @@
+---
+// Supports weights 400-700
+import "@fontsource-variable/expletus-sans";
+// Supports weights 100-900
+import "@fontsource-variable/exo-2";
+import MainPage from "../../components/MainPage.astro";
+
+const socialMedias = [
+    ["LinkedIn", "https://www.linkedin.com/in/thomas-lower-234836245/"],
+    ["Email", "mailto:thomaslower9@gmailcom"],
+    ["Github", "https://github.com/supersliser"],
+];
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>Thomas Lower</title>
+    </head>
+    <body style="margin: 0; padding: 0; border-width: 0; overflow-x:hidden">
+        <MainPage title="Contact Me">
+            <div
+                style="min-height: 100vh; position: absolute; top: 90vh; background-color: #000000; color: #ffffff; margin-top: 5rem; width: 100vw; display: flex; flex-direction: row; align-items: start; justify-content: center;"
+            >
+                <div
+                    style="width: 50vw; display: flex; flex-direction: column; align-items: center; justify-content: start;"
+                >
+                    <h1
+                        style="font-size: 3rem; font-family: 'Exo 2 Variable', sans-serif;"
+                    >
+                        Get In Touch
+                    </h1>
+                    {
+                        socialMedias.map((socialMedia) => (
+                            <a
+                                href={socialMedia[1]}
+                                style="font-size: 2rem; font-family: 'Exo 2 Variable', sans-serif; margin-top: 2rem; border-width: 3px; border-radius: 30px; border-style: solid; border-color: #ffffff; padding: 2rem;"
+                            >
+                                {socialMedia[0]}
+                            </a>
+                        ))
+                    }
+                </div>
+            </div>
+        </MainPage>
+    </body>
+</html>

@@ -6,7 +6,7 @@ import "@fontsource-variable/exo-2";
 import PageDirectory from "../../components/PageDirectory.astro";
 import SearchBar from "../../components/SearchBar";
 import MainPage from "../../components/MainPage.astro";
-const projects = await Astro.glob("./*.mdx");
+const tasks = await Astro.glob("./*.mdx");
 ---
 
 <html lang="en">
@@ -15,18 +15,18 @@ const projects = await Astro.glob("./*.mdx");
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Guides | Thomas Lower</title>
+    <title>Tasks | Thomas Lower</title>
   </head>
   <body style="margin: 0; padding: 0; border-width: 0; overflow-x:hidden">
-    <MainPage title="Guide Database">
+    <MainPage title="Tasks Database">
       <div
         style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 10%;position: absolute; top: 100vh; left: 0; width: 100vw; min-height: 100vh; padding-bottom: 40vh; background-color: #000000; color: #ffffff;"
       >
         <div style="height: 25%; width: 100%;">
-          <SearchBar client:load projects={projects} hasLogo={true} />
+          <SearchBar client:load projects={tasks} hasLogo={false} />
         </div>
         <div style="height: 75%; width: 50%;">
-          <PageDirectory projects={projects} fullSize hasLogo />
+          <PageDirectory projects={tasks} fullSize />
         </div>
       </div>
     </MainPage>

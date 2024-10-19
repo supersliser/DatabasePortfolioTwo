@@ -1,0 +1,133 @@
+---
+title: Journey Times
+layout: ../../layouts/mdxLayout.astro
+difficulty: 1
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+# {frontmatter.title}
+
+The Quick Lowery Offices delivery company requires a program to help calculate the time it will take for someone to make various journeys
+
+The program must be able to:
+- [ ] Allow input of delivery starting location, destination, distance and estimated average speed
+- [ ] Display the time to travel in hours.
+
+> Use the formula *speed(m/s) = distance(m) / time(seconds)
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    printf("Please enter your current location\n");
+    char location[100];
+    scanf("%s", location);
+    fflush(stdin);
+
+
+    printf("Please enter your destination\n");
+    char destination[100];
+    scanf("%s", destination);
+    fflush(stdin);
+
+
+    printf("Please enter the destination between these 2 locations in kilometres\n");
+    float distance = 0;
+    scanf("%f", &distance);
+    fflush(stdin);
+
+    
+    printf("Please enter your estimated average speed in km/h\n");
+    float speed = 0;
+    scanf("%f", &speed);
+    fflush(stdin);
+
+
+    float time = distance / speed;
+
+    printf("You are travelling from %s to %s in %f hours\n", location, destination, time);
+    scanf("");
+    return 0;
+}
+```
+</CodeBlock>
+
+## Stretch Task 1
+
+Improve the program so that it:
+- [ ] Allows the user to specify whether they wish to calculate speed, distance or time and calculate this.
+- [ ] Output should have appropriate units.
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    int UnitToCalculate = 0;
+    // 1 = speed
+    // 2 = distance
+    // 3 = time
+
+    printf("Please enter the number corresponding to the unit you want to calculate\n");
+    printf("1 = speed\n2 = distance\n3 = time\n");
+    scanf("%d", &UnitToCalculate);
+    fflush(stdin);
+
+    printf("Please enter your current location\n");
+    char location[100];
+    scanf("%s", location);
+    fflush(stdin);
+
+    printf("Please enter your destination\n");
+    char destination[100];
+    scanf("%s", destination);
+    fflush(stdin);
+
+    float distance = 0;
+    if (UnitToCalculate != 2)
+    {
+        printf("Please enter the destination between these 2 locations in kilometres\n");
+        scanf("%f", &distance);
+        fflush(stdin);
+    }
+
+    float speed = 0;
+    if (UnitToCalculate != 1)
+    {
+        printf("Please enter your estimated average speed in km/h\n");
+        scanf("%f", &speed);
+        fflush(stdin);
+    }
+
+    float time = 0;
+    if (UnitToCalculate != 3)
+    {
+        printf("Please enter the time in hours\n");
+        scanf("%f", &time);
+        fflush(stdin);
+    }
+
+    if (UnitToCalculate == 1)
+    {
+        speed = distance / time;
+        printf("Your estimated average speed is %f km/h while travelling between %s and %s\n", speed, location, destination);
+    }
+    else if (UnitToCalculate == 2)
+    {
+        distance = speed * time;
+        printf("The distance between %s and %s is %f km\n", location, destination, distance);
+    }
+    else if (UnitToCalculate == 3)
+    {
+        time = distance / speed;
+        printf("The time taken to travel between %s and %s is %f hours\n", location, destination, time);
+    }
+    return 0;
+}
+```
+</CodeBlock>

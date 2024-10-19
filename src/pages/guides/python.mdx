@@ -1,0 +1,305 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Python
+---
+
+# A Basic Guide to Python
+
+## Input and output
+
+I/O (input and output) are the methods through which your user can interact with the computer. Generally we think of these in the form of buttons and graphical user interfaces (GUI) but those can be very technical.
+
+All programming languages have the most primitive formats of I/O using a terminal (a.k.a Command Line Interface or CLI).
+
+### Input
+
+To have a user input data from the terminal, use the function
+```py
+input()
+```
+e.g.
+```py
+x = input("Enter a number")
+```
+This will display the text "Enter a number" on the screen, wait for the user to enter a value (the user tells the system they have finished their entry by pressing 'Enter'), then finally store this value in the [variable](#assignment) x
+
+### Output
+
+To have the program display text in the terminal use
+```py
+print()
+```
+
+e.g.
+```py
+print("Hello") # prints "Hello"
+
+x = 5
+print(x) # prints "5"
+
+x = 4
+y = 5
+print(x + y) #prints "9"
+```
+
+## Assignment
+
+All programming languages are able to **store data** in the memory of the computer for as long as the computer is running. This storage is called a **variable**.
+
+### The structure of a variable
+
+A variable has 4 main components:
+- Value being stored
+- [Identifier](#identifiers)
+- [Data Type](#data-types)
+- [Scope](#scope)
+
+
+### Declaring a variable
+
+To create a variable is called *Declaring*.
+
+To declare a variable in python, you simply state its identifier then assign a value using "=".
+e.g.
+```py
+variable = 5
+x = 6
+y = 3
+z = x + (y * 2) #z = 12
+```
+
+### Identifiers
+
+The **Identifier** for a variable is essentially its **name**. This has no effect on the data type of the variable nor the type of data it can store. The only rules for the identifier are that:
+- It has *not* been used previously in [scope](#scope)
+- It has *no* spaces
+- It does *not* feature punctuation other than "_" and "-"
+
+### Data Types
+
+The Data type of a variable is the **type** of data it can store, this is important since in a computer **all data is technically a number, which is then interpreted differently based on the data type**. For example as an integer, the number 65 is the number 65. But as a string, the number 65 is interpreted as the letter "a".
+
+Python has something called *inferred data types*. This means that the programming language is guessed based on the data that is being put into the variable.
+
+Despite this, it is still useful to be aware of the different types in python and how to use them properly.
+
+#### Primitive Data Types
+
+The most basic data types in python are called **Primitive Types**
+
+| Name     | Description                           | Example                     |
+| -------- | ------------------------------------- | --------------------------- |
+| string   | Text (Unicode)                        | `"Hello World"`             |
+| integer  | A Whole Number (positive or negative) | `5`                         |
+| float    | A decimal Number                      | 3.5                         |
+| complex  | A complex or imaginary number         | 5j                          |
+| boolean  | A true or false                       | `x = True`<br/>`y = False`  |
+| bytes    | A sequential set of bytes             | `b255` (11111111 in binary) |
+| NoneType | Null                                  | NoneType                    |
+
+#### List Data Types
+
+A List type is able to store a sequence of variables
+
+| Name       | Description                                                                                                                              | Declaration                                   | Access              |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- | ------------------- |
+| List       | A list that may be edited and can contain duplicate values                                                                               | `list = [1, 2, 5, 2, 7]`                      | `list[3] = 2`       |
+| Tuble      | A list which cannot be edited after being created                                                                                        | `tuble = [1, 2, 5, 2, 7]`                     | `tuble[3] = 2`      |
+| Set        | A list of a set size, which can have values added to and removed from and cannot contain duplicates                                      | `set = {1, 2, 5, 6, 7}`                       | `set[3] = 6`        |
+| Dictionary | A list where each value is associated with a key, the value can be the same as another value but a key cannot be the same as another key | `dict = {1: "item1", 2: "item2", 3: "item1"}` | `dict[3] = "item1"` |
+
+### Scope
+Scope is the area within code where a [variable](#assignment) or [function](#functions) can be accessed.
+
+Any variable can be accessed in an area that has the same or more indentation than where it was declared.
+
+e.g.
+```py
+x = 5
+if (True):
+    y = x + 5 #this code will work as x is still in scope here
+
+z = x + y #this code will not work as y is not in scope here
+```
+
+## Arithmetic Operators
+
+| Name           | Description                                                         | Symbol | Usage               |
+| -------------- | ------------------------------------------------------------------- | ------ | ------------------- |
+| add            | adds 2 numbers together                                             | `+`    | `x = 1 + 1` x = 2   |
+| subtract       | takes the second number from the first                              | `-`    | `x = 2 - 1` x = 1   |
+| multiply       | multiplies 2 numbers                                                | `*`    | `x = 3 * 2` x = 6   |
+| divide         | divides the first number by the second                              | `/`    | `x = 5 / 2` x = 2.5 |
+| integer divide | divides the first number by the second and returns the integer part | `//`   | `x = 5 // 2` x = 2  |
+| exponent       | gives the first number to the power of the second number            | `**`   | `x = 3 ** 2` x = 9  |
+| modulus        | integer divides the 2 numbers then returns the remainder            | `%`    | `x = 5 % 2` x = 1   |
+
+## Selection
+
+Selection is another essential part of any programming language, it is used to **choose which block of code should run** based on a [boolean](#primitive-data-types) [condition](#boolean-operators)
+
+This is achieved through an **IF Statement**
+
+### IF Statment
+An if statement will run 1 block of code if a condition is **true**
+```py
+x = 5
+y = input("Enter a number")
+
+if v1 == v2:
+    print("hi")
+```
+
+### ELSE Statement
+An else statment runs code if the condition is **false**
+```py
+x = 5
+y = input("Enter a number")
+
+if x == y:
+    print("hi")
+else:
+    print("bye")
+```
+### ELIF Statement
+An elif statement allows you to **chain** ifs to **continuously** test multiple conditions until 1 is correct (you can also end this with an else to catch any other posibility)
+```py
+x = 5
+y = input("Enter a number")
+
+if x == y:
+    print("hi")
+elif y = z:
+    print("howdy")
+else:
+    print("bye")
+```
+
+> An else statement must always be at the **end** of this chain.
+
+### Nested IF
+A Nested if statement is an if statement **inside** of another if statement
+
+```py
+x = input("Enter a number")
+
+if x > 5:
+    if x < 6:
+        print("hello")
+    else:
+        print("goodbye")
+else:
+    print("ahhhhh")
+```
+
+### Boolean Operators
+
+A condition is what is tested in an if statement and must be a boolean value.
+
+Boolean values can be tested using a boolean operator.
+
+> for the sake of these, assume `x = 32`
+
+| Name                     | Description                                                                    | Symbol | Usage                     |
+| ------------------------ | ------------------------------------------------------------------------------ | ------ | ------------------------- |
+| Equal                    | Checks to see if a value is equal to another value                             | `==`   | `x == 32` is true         |
+| Greater than             | Checks to see if a value is greater than another value                         | `>`    | `x > 31` is true          |
+| Less than                | Checks to see if a value is less than another value                            | `<`    | `x < 33` is true          |
+| Greater than or equal to | Checks to see if a value is greater than or equal to another value             | `>=`   | `x >= 32` is true         |
+| Less than or equal to    | Checks to see if a value is less than or equal to another value                | `<=`   | `x <= 32` is true         |
+| Not equal                | Checks to see if a value is **not** equal to another value                     | `!=`   | `x != 17` is true         |
+| AND                      | Compares 2 values, if both are true then returns true, otherwise returns false | `and`  | `True and False` is false |
+| OR                       | Compares 2 values, if at least 1 is true then returns true                     | `or`   | `True or False` is true   |
+| NOT                      | Coverts a boolean to its inverse (true becomes false and false becomes true)   | `not`  | `not False` is true       |
+
+
+## Iteration
+
+Iteration is the process of running a block of code multiple times
+
+### Unconditional Loops
+An unconditional loop will run a block of code a set number of times, this is often referred to as a for loop.
+
+A for loop has 3 parts, the start, end and step.
+A for loop will assign the start to a variable (i in this case). Each time the loop goes around, it will add the step to the value of i until it is greater than the end.
+
+```py
+for i in range(1, 10, 2):
+    print(i)
+```
+
+This block of code will run 5 times, each time printing the value of i (1, 3, 5, 7, 9)
+
+A for loop can also be used to loop through each item in a list
+
+```py
+testList = ["value1", "value2", "value3"]
+for item in testList:
+    print(item)
+```
+
+This will loop through each item in testList and print it to the terminal.
+
+### Conditional Loops
+
+A conditional loop is a loop which will run a block of code until a [condition](#boolean-operators) is false.
+
+```py
+x = 5
+while x < 10:
+    x + 1
+```
+
+This will run 5 times, each time adding 1 to x until x is not less than 10
+
+## Functions
+
+A function is a block of code that can be run **within** another block of code
+
+### Parts of a function
+In python, a function has 4 main components:
+- `def` keyword
+- [Identifier](#identifiers)
+- [Passed Arguments](#passing-values)
+- code
+
+### Declaring a function
+
+To create a function is called **declaring** a function. It should be noted that declaring a function does not cause that function to run, it will not run until it is [called](#calling-functions)
+
+```py
+def functionName():
+    print("Function is running")
+```
+
+### Calling Functions
+
+To call a function is to cause it to actually run at that point in the code
+
+```py
+def writeHello(): #this line declares the function however it does not run
+    print("Hello World")
+    print("How are you today")
+
+writeHello() #this line calls the function so that itll actually run
+```
+
+### Returns
+A function can be made to return a value using the `return` keyword.
+
+```py
+def getPI():
+    return 3.14152653589
+
+x = getPI()
+```
+
+### Passing Values
+A function can be given values to use
+
+```py
+def addOne(number):
+    return number + 1
+
+x = addOne(5) #x = 6
+```

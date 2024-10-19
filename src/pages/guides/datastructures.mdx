@@ -1,0 +1,701 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Data Structures
+---
+
+# Data Structures
+
+Within programming, there are a few standard data structures (usually implemented as classes) which are used to store data in a certain way. These allow data to be accessed and formatted in a certain way and are usually used for groups of data (lists and making sure they are accessed in the right way).
+
+## In and Out order
+
+A given data structure can be described using an **in and out order** which describes the order in which a data item is entered and the relative time it can be accessed.
+
+For example, if a data structure is FIFO (First in First out) such as a [Queue](#queue) then this means that the first item to be entered into the list will be the first item to be accessed in the list.
+
+Likewise, if a data structure is FILO (First in Last out) such as a [Stack](#stack) then this means the first item to be entered into the list will be the last item to be accessed in the list.
+
+Finally, a list can be FIAO (First in Any out) which means that an item entered can be accessed at any point in the list using an index (e.g. [Linked List](#linked-list))
+
+## Linked List
+
+Up until now, you have likely been using an array to store a sequential set of data. However, there is another option, a linked list. Within an array, all data is stored sequentially in 1 big block, meaning that the data can be accessed really quickly using an offset. However, to edit the size of an array, you must copy the entire array to a new location in memory which can be an incredibly slow process.
+
+A Linked List has the opposite effects.
+
+A linked list stores data in individual elements, each element has 2 components:
+- Payload (the data that is being stored in that element of the list).
+- A pointer to the next item in the list.
+
+Because of this pointer, lists do not need to be stored sequentially or in a big block as they can be accessed by simply following the chain of pointers, thus making them much easier to add new elements to.
+
+However, to access an item in the list, you must go through each item in the pointer chain until you reach that item, therefore linked lists are much slower to access.
+
+A linked list can be single linked or double linked. In a single linked list, the chain of pointers travels from the first item to the last item. In a double linked list, there are 2 chains of pointers which travel in both directions (first to last & last to first)
+
+A linked list is defined as a [FIAO (First in Any out)](#in-and-out-order) algorithm.
+
+Below is an implementation of a singularly linked list in C++:
+
+```cpp
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// LinkedList class
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    LinkedList() : head(nullptr) {}
+
+    // Insert a new node at the beginning
+    void insertAtBeginning(int data) {
+        Node* newNode = new Node(data);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Insert a new node at the end
+    void insertAtEnd(int data) {
+        Node* newNode = new Node(data);
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    // Delete a node by value
+    void deleteNode(int data) {
+        if (head == nullptr) return;
+        if (head->data == data) {
+            Node* temp = head;
+            head = head->next;
+            delete temp;
+            return;
+        }
+        Node* temp = head;
+        while (temp->next != nullptr && temp->next->data != data) {
+            temp = temp->next;
+        }
+        if (temp->next == nullptr) return;
+        Node* nodeToDelete = temp->next;
+        temp->next = temp->next->next;
+        delete nodeToDelete;
+    }
+
+    // Display the linked list
+    void display() {
+        Node* temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "nullptr" << endl;
+    }
+
+    // Destructor to clean up the memory
+    ~LinkedList() {
+        Node* current = head;
+        Node* nextNode;
+        while (current != nullptr) {
+            nextNode = current->next;
+            delete current;
+            current = nextNode;
+        }
+    }
+};
+```
+
+## Stack
+
+The stack is secretly the most common data structure in programming, although most people dont know about it.
+
+A stack is similar to a [Linked List](#linked-list) in terms of internal style but differs in terms of access.
+
+Firstly, a stack is a [FILO (First in Last out) algorithm](#in-and-out-order). The best way to imagine this is a literal stack of plates. When you add an item, you add it to the top of the stack, and you can only access the item at the top of the stack, so to access another in the middle of the stack, you will have to remove all items on top of the item you want.
+
+To interact with a stack, it has 3 main functions:
+- Push, this enters an item onto the top of the stack
+- Peek, this views the item at the top of the stack without removing it
+- Pop, this removes the item at the top of the stack and returns it.
+
+### Call Stack
+
+As I mentioned earlier, a stack is secretly the most common data structure in programming, as pretty much every single program uses it. This is called a call stack.
+
+Within a program, you can have functions which can be called from functions which can be called from functions, these are managed using the call stack.
+
+Whenever the program enters a new function, it adds this function to the call stack, then when the function returns, it is popped from the call stack and this then allows the program to access the next highest item in the call stack (the function from which the popped function was called). 
+
+The static variables within the function are also stored in this call stack to help manage scope
+
+Below is an implementation of a Stack in C++:
+
+```cpp
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+
+    Node(int val) : data(val), next(nullptr) {}
+};
+
+// Stack class
+class Stack {
+private:
+    Node* top;  // Pointer to the top node
+
+public:
+    // Constructor to initialize stack
+    Stack() : top(nullptr) {}
+
+    // Destructor to clean up the memory
+    ~Stack() {
+        while (top != nullptr) {
+            Node* temp = top;
+            top = top->next;
+            delete temp;
+        }
+    }
+
+    // Function to add an element to the stack
+    void push(int x) {
+        Node* newNode = new Node(x);
+        newNode->next = top;
+        top = newNode;
+    }
+
+    // Function to remove an element from the stack
+    int pop() {
+        if (top == nullptr) {
+            throw std::underflow_error("Stack Underflow");
+        }
+        Node* temp = top;
+        int poppedData = temp->data;
+        top = top->next;
+        delete temp;
+        return poppedData;
+    }
+
+    // Function to return the top element of the stack
+    int peek() const {
+        if (top == nullptr) {
+            throw std::underflow_error("Stack is Empty");
+        }
+        return top->data;
+    }
+
+    // Function to check if the stack is empty
+    bool isEmpty() const {
+        return top == nullptr;
+    }
+
+    // Function to return the size of the stack
+    int size() const {
+        int count = 0;
+        Node* temp = top;
+        while (temp != nullptr) {
+            count++;
+            temp = temp->next;
+        }
+        return count;
+    }
+};
+```
+
+## Queue
+
+A queue is another extremely common data structure. This one is rather self explanatory.
+
+A queue stores data in [FIFO (first in first out)](#in-and-out-order) and is used to store data in a list so that you enter an item at the back and are accessed in order of when they were entered, starting with the most distant.
+
+There are different types of queue:
+- [Basic Queue](#basic-queue)
+- [Cyclic Queue](#cyclic-queue)
+- [Priority Queue](#priority-queue)
+
+### Basic Queue
+
+A basic queue is the most primitive type of queue, this simply stores items in a single linear queue with no special behaviours.
+
+This works by storing items in an array and then moving a **head** pointer which points to the first item in the list.
+
+This can lead to an error where space in the array before the head is wasted.
+
+Below is an implementation of a Basic Queue:
+
+```cpp
+class LinearQueue {
+private:
+    int* arr;
+    int front, rear, capacity, size;
+
+public:
+    // Constructor to initialize the queue
+    LinearQueue(int capacity) : capacity(capacity), size(0), front(0), rear(capacity - 1) {
+        arr = new int[capacity];
+    }
+
+    // Destructor to clean up the memory
+    ~LinearQueue() {
+        delete[] arr;
+    }
+
+    // Function to add an element to the queue
+    void enqueue(int data) {
+        if (isFull()) {
+            throw std::overflow_error("Queue Overflow");
+        }
+        rear = (rear + 1) % capacity;
+        arr[rear] = data;
+        size++;
+    }
+
+    // Function to remove an element from the queue
+    int dequeue() {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue Underflow");
+        }
+        int data = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+        return data;
+    }
+
+    // Function to get the front element of the queue
+    int getFront() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue is Empty");
+        }
+        return arr[front];
+    }
+
+    // Function to get the rear element of the queue
+    int getRear() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Queue is Empty");
+        }
+        return arr[rear];
+    }
+
+    // Function to check if the queue is empty
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    // Function to check if the queue is full
+    bool isFull() const {
+        return size == capacity;
+    }
+
+    // Function to get the current size of the queue
+    int getSize() const {
+        return size;
+    }
+};
+```
+
+### Cyclic Queue
+
+A cyclic queue is a slightly more advanced queue with a second pointer to the tail (last item in the list). This overcomes the error in a [Basic Queue](#basic-queue) where the space in the array before the head is wasted as data is added to the location at the tail rather than simply at the end of the array.
+
+Below is an implementation of a Cyclic Queue:
+
+```cpp
+class CircularQueue {
+private:
+    int* arr;
+    int front, rear, size, capacity;
+
+public:
+    // Constructor to initialize queue
+    CircularQueue(int capacity) : capacity(capacity), size(0), front(0), rear(capacity - 1) {
+        arr = new int[capacity];
+    }
+
+    // Destructor to clean up the memory
+    ~CircularQueue() {
+        delete[] arr;
+    }
+
+    // Function to add an element to the queue
+    void enqueue(int data) {
+        if (isFull()) {
+            cout << "Queue Overflow\n";
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        arr[rear] = data;
+        size++;
+    }
+
+    // Function to remove an element from the queue
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue Underflow\n";
+            return -1;
+        }
+        int data = arr[front];
+        front = (front + 1) % capacity;
+        size--;
+        return data;
+    }
+
+    // Function to get the front element of the queue
+    int getFront() const {
+        if (isEmpty()) {
+            cout << "Queue is empty\n";
+            return -1;
+        }
+        return arr[front];
+    }
+
+    // Function to get the rear element of the queue
+    int getRear() const {
+        if (isEmpty()) {
+            cout << "Queue is empty\n";
+            return -1;
+        }
+        return arr[rear];
+    }
+
+    // Function to check if the queue is empty
+    bool isEmpty() const {
+        return size == 0;
+    }
+
+    // Function to check if the queue is full
+    bool isFull() const {
+        return size == capacity;
+    }
+
+    // Function to get the current size of the queue
+    int getSize() const {
+        return size;
+    }
+};
+```
+
+### Priority Queue
+
+A priority queue has items removed in order of priority as well as the order in which they were entered.
+
+```cpp
+class PriorityQueue {
+private:
+    std::vector<int> heap;
+
+    // Function to get the parent index of a given index
+    int parent(int i) {
+        return (i - 1) / 2;
+    }
+
+    // Function to get the left child index of a given index
+    int leftChild(int i) {
+        return 2 * i + 1;
+    }
+
+    // Function to get the right child index of a given index
+    int rightChild(int i) {
+        return 2 * i + 2;
+    }
+
+    // Function to heapify up (restore heap property upwards)
+    void heapifyUp(int i) {
+        if (i && heap[parent(i)] < heap[i]) {
+            std::swap(heap[i], heap[parent(i)]);
+            heapifyUp(parent(i));
+        }
+    }
+
+    // Function to heapify down (restore heap property downwards)
+    void heapifyDown(int i) {
+        int left = leftChild(i);
+        int right = rightChild(i);
+        int largest = i;
+
+        if (left < heap.size() && heap[left] > heap[largest]) {
+            largest = left;
+        }
+
+        if (right < heap.size() && heap[right] > heap[largest]) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            std::swap(heap[i], heap[largest]);
+            heapifyDown(largest);
+        }
+    }
+
+public:
+    // Function to check if the priority queue is empty
+    bool isEmpty() const {
+        return heap.size() == 0;
+    }
+
+    // Function to get the size of the priority queue
+    int size() const {
+        return heap.size();
+    }
+
+    // Function to add an element to the priority queue
+    void push(int element) {
+        heap.push_back(element);
+        int index = heap.size() - 1;
+        heapifyUp(index);
+    }
+
+    // Function to remove and return the highest priority element
+    int pop() {
+        if (isEmpty()) {
+            throw std::underflow_error("Priority Queue Underflow");
+        }
+
+        int root = heap.front();
+        heap[0] = heap.back();
+        heap.pop_back();
+        heapifyDown(0);
+
+        return root;
+    }
+
+    // Function to get the highest priority element without removing it
+    int top() const {
+        if (isEmpty()) {
+            throw std::underflow_error("Priority Queue is Empty");
+        }
+
+        return heap.front();
+    }
+};
+```
+
+## Graph
+
+A Graph data structure works by storing a series of nodes, which are then connected using a series of arcs.
+
+A Graph data structure does not have a specific [in and out order](#in-and-out-order) due to the nature of nodes being stored.
+
+The most typical implementations of Graphs are in social media databases (where a node represents a user or information about a user such as an interest) and in 3D applications such as Maya and Blender (where a node represents a vertex and an arc represents an edge).
+
+Below is an implementation of a graph data structure:
+
+```cpp
+class Graph {
+private:
+    // Adjacency list representation
+    std::unordered_map<int, std::list<int>> adjList;
+
+public:
+    // Function to add a vertex to the graph
+    void addVertex(int vertex) {
+        // Check if vertex already exists
+        if (adjList.find(vertex) == adjList.end()) {
+            adjList[vertex] = std::list<int>();
+        }
+    }
+
+    // Function to add an edge to the graph (undirected)
+    void addEdge(int src, int dest) {
+        // Add the edge from src to dest
+        adjList[src].push_back(dest);
+        // Since the graph is undirected, add an edge from dest to src as well
+        adjList[dest].push_back(src);
+    }
+
+    // Function to display the graph
+    void display() {
+        for (const auto& pair : adjList) {
+            std::cout << pair.first << " -> ";
+            for (const auto& vertex : pair.second) {
+                std::cout << vertex << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+
+    // Function to perform BFS traversal from a given source vertex
+    void BFS(int start) {
+        std::unordered_map<int, bool> visited;
+        std::queue<int> queue;
+
+        visited[start] = true;
+        queue.push(start);
+
+        while (!queue.empty()) {
+            int vertex = queue.front();
+            queue.pop();
+            std::cout << vertex << " ";
+
+            for (const int& adjVertex : adjList[vertex]) {
+                if (!visited[adjVertex]) {
+                    visited[adjVertex] = true;
+                    queue.push(adjVertex);
+                }
+            }
+        }
+        std::cout << std::endl;
+    }
+
+    // Function to perform DFS traversal from a given source vertex
+    void DFS(int start) {
+        std::unordered_map<int, bool> visited;
+        DFSUtil(start, visited);
+        std::cout << std::endl;
+    }
+
+private:
+    // Utility function for DFS traversal
+    void DFSUtil(int vertex, std::unordered_map<int, bool>& visited) {
+        visited[vertex] = true;
+        std::cout << vertex << " ";
+
+        for (const int& adjVertex : adjList[vertex]) {
+            if (!visited[adjVertex]) {
+                DFSUtil(adjVertex, visited);
+            }
+        }
+    }
+};
+```
+
+### Trees
+
+A Tree data structure is an implementation of a [Graph](#graph) data structure which works by designating a single node as **root** from which all nodes can be traced back to. Furtheremore, nodes at the edges of a tree data structure are names **leaves**.
+
+The most common type of tree is a binary tree, in which a parent node can have anywhere between 0 and 2 child nodes (leaf nodes). This is used in sorting and searching algorithms.
+
+To traverse between nodes in a tree, there are 3 main approaches (when looking at the root -> child description, remember that when this traverses to a new node, it considers that node the root):
+- pre order traversal, where items are accessed in order root -> child A -> child B
+- in order traversal, where items are accessed in order child A -> root -> child B
+- post order traversal, where items are accessed in order child A -> child B -> root
+
+Below is an implementation of a binary tree data structure:
+
+```cpp
+// Definition of a node in the binary tree
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+
+    // Constructor
+    TreeNode(int value) : data(value), left(nullptr), right(nullptr) {}
+};
+
+class BinaryTree {
+private:
+    TreeNode* root;
+
+public:
+    // Constructor
+    BinaryTree() : root(nullptr) {}
+
+    // Destructor
+    ~BinaryTree() {
+        // Delete all nodes in the tree
+        clear(root);
+    }
+
+    // Function to insert a value into the binary tree
+    void insert(int value) {
+        root = insertRecursive(root, value);
+    }
+
+    // Function to perform an in-order traversal of the binary tree
+    void inOrderTraversal() {
+        inOrderTraversalRecursive(root);
+    }
+
+    // Function to perform a pre-order traversal of the binary tree
+    void preOrderTraversal() {
+        preOrderTraversalRecursive(root);
+    }
+
+    // Function to perform a post-order traversal of the binary tree
+    void postOrderTraversal() {
+        postOrderTraversalRecursive(root);
+    }
+
+    // Function to perform a level-order traversal of the binary tree
+    void levelOrderTraversal() {
+        if (!root) return;
+
+        std::queue<TreeNode*> q;
+        q.push(root);
+
+        while (!q.empty()) {
+            TreeNode* current = q.front();
+            q.pop();
+            std::cout << current->data << " ";
+
+            if (current->left) q.push(current->left);
+            if (current->right) q.push(current->right);
+        }
+    }
+
+private:
+    // Private helper function to insert a value into the binary tree recursively
+    TreeNode* insertRecursive(TreeNode* node, int value) {
+        if (!node) {
+            return new TreeNode(value);
+        }
+
+        if (value < node->data) {
+            node->left = insertRecursive(node->left, value);
+        } else if (value > node->data) {
+            node->right = insertRecursive(node->right, value);
+        }
+
+        return node;
+    }
+
+    // Private helper function to perform in-order traversal recursively
+    void inOrderTraversalRecursive(TreeNode* node) {
+        if (!node) return;
+
+        inOrderTraversalRecursive(node->left);
+        std::cout << node->data << " ";
+        inOrderTraversalRecursive(node->right);
+    }
+
+    // Private helper function to perform pre-order traversal recursively
+    void preOrderTraversalRecursive(TreeNode* node) {
+        if (!node) return;
+
+        std::cout << node->data << " ";
+        preOrderTraversalRecursive(node->left);
+        preOrderTraversalRecursive(node->right);
+    }
+
+    // Private helper function to perform post-order traversal recursively
+    void postOrderTraversalRecursive(TreeNode* node) {
+        if (!node) return;
+
+        postOrderTraversalRecursive(node->left);
+        postOrderTraversalRecursive(node->right);
+        std::cout << node->data << " ";
+    }
+
+    // Private helper function to clear the binary tree recursively
+    void clear(TreeNode* node) {
+        if (!node) return;
+
+        clear(node->left);
+        clear(node->right);
+        delete node;
+    }
+};
+```

@@ -1,0 +1,143 @@
+---
+title: Filesize Calculator
+layout: ../../layouts/mdxLayout.astro
+difficulty: 1.4
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+
+# {frontmatter.title}
+
+Quick Lowery Offices is looking to optimise its image storage.
+
+You must write a program that can:
+- [ ] Take an input of width and height in inches
+- [ ] Take an input of resolution in pixels per inches
+- [ ] Take a colour depth in bits per pixels
+- [ ] Output a filesize in MiB
+
+> Remember a KiB is 1024 Bytes, not 1000.
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    float width, height, resolution;
+    int colorDepth;
+
+    // Input width in inches
+    printf("Enter the width in inches: ");
+    scanf("%f", &width);
+
+    // Input height in inches
+    printf("Enter the height in inches: ");
+    scanf("%f", &height);
+
+    // Input resolution in pixels per inch
+    printf("Enter the resolution in pixels per inch: ");
+    scanf("%f", &resolution);
+
+    // Input color depth in bits per pixel
+    printf("Enter the color depth in bits per pixel: ");
+    scanf("%d", &colorDepth);
+
+    // Calculate the total number of pixels
+    float widthPixels = width * resolution;
+    float heightPixels = height * resolution;
+    float totalPixels = widthPixels * heightPixels;
+
+    // Calculate the total number of bits
+    float totalBits = totalPixels * colorDepth;
+
+    // Convert bits to bytes (1 byte = 8 bits)
+    float totalBytes = totalBits / 8.0;
+
+    // Convert bytes to megabytes (1 MB = 1024 * 1024 bytes)
+    float totalMB = totalBytes / (1024.0 * 1024.0);
+
+    // Output the file size in MB
+    printf("The file size is: %.2f MB\n", totalMB);
+
+    return 0;
+}
+```
+</CodeBlock>
+
+## Stretch Goal 1
+
+Adapt this program with adaptable units so that width and height can be given in a number of types of units
+
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+// Function to convert width and height to inches
+float convert_to_inches(float value, char *unit) {
+    if (strcmp(unit, "inches") == 0) {
+        return value;
+    } else if (strcmp(unit, "cm") == 0) {
+        return value / 2.54;
+    } else if (strcmp(unit, "mm") == 0) {
+        return value / 25.4;
+    } else {
+        printf("Invalid unit. Please use 'inches', 'cm', or 'mm'.\n");
+        return -1;
+    }
+}
+
+int main() {
+    float width, height, resolution, width_inches, height_inches;
+    int color_depth;
+    char unit[10];
+
+    // Get width input
+    printf("Enter the width: ");
+    scanf("%f", &width);
+
+    // Get height input
+    printf("Enter the height: ");
+    scanf("%f", &height);
+
+    // Get unit input
+    printf("Enter the unit (inches, cm, mm): ");
+    scanf("%s", unit);
+
+    // Convert width and height to inches
+    width_inches = convert_to_inches(width, unit);
+    height_inches = convert_to_inches(height, unit);
+
+    // If conversion fails, exit the program
+    if (width_inches == -1 || height_inches == -1) {
+        return 1;
+    }
+
+    // Get resolution input
+    printf("Enter the resolution (PPI): ");
+    scanf("%f", &resolution);
+
+    // Get color depth input
+    printf("Enter the color depth (bpp): ");
+    scanf("%d", &color_depth);
+
+    // Calculate the total number of pixels
+    float total_pixels = width_inches * resolution * height_inches * resolution;
+
+    // Calculate the total bits
+    float total_bits = total_pixels * color_depth;
+
+    // Convert bits to bytes (8 bits in a byte)
+    float total_bytes = total_bits / 8;
+
+    // Convert bytes to megabytes (1024 * 1024 bytes in a megabyte)
+    float total_megabytes = total_bytes / (1024 * 1024);
+
+    // Output the filesize in MB
+    printf("The filesize is: %.2f MB\n", total_megabytes);
+
+    return 0;
+}
+```
+</CodeBlock>

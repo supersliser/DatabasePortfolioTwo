@@ -1,0 +1,161 @@
+---
+title: Login System
+layout: ../../layouts/mdxLayout.astro
+difficulty: 1.5
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+
+# {frontmatter.title}
+
+**Quick Lowery Offices needs a simple login system so that its employees may access the company system.**
+
+The program must allow employees to do the following:
+- [ ] Allow the user to enter a username and password
+- [ ] Display a helpful message once the user logs in successfully
+- [ ] Display a helpful message if the user enteres the wrong password
+
+> The correct password is 'pa55W()RD'.
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char username[16];
+    char password[16];
+    char *correctPassword = 'pa33W()RD';
+
+    printf('Please enter your username\n');
+    scanf('%s', username);
+    fflush(stdin);
+
+    while (1)
+    {
+        printf('Please enter your password\n');
+        scanf('%s', password);
+        fflush(stdin);
+        if (strcmp(password, correctPassword) == 0)
+        {
+            printf('Congratulations %s, you have successfully logged in.\n', username);
+            scanf('');
+            fflush(stdin);
+            return 0;
+        }
+        else {
+            printf('Incorrect password. Please try again.\n');
+        }
+    }
+
+    return 0;
+}
+```
+</CodeBlock>
+
+## Stretch Task 1
+
+Close the program if they make more than 5 failed attempts.
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char username[16];
+    char password[16];
+    char *correctPassword = "pa33W()RD";
+
+    printf("Please enter your username\n");
+    scanf("%s", username);
+    fflush(stdin);
+
+    for (int i = 0; i <CodeBlock 5; i++)
+    {
+        printf("Please enter your password\n");
+        scanf("%s", password);
+        fflush(stdin);
+        if (strcmp(password, correctPassword) == 0)
+        {
+            printf("Congratulations %s, you have successfully logged in.\n", username);
+            scanf("");
+            fflush(stdin);
+            return 0;
+        }
+        else {
+            printf("Incorrect password. Please try again.\n");
+        }
+    }
+
+    printf("Too many incorrect attempts. Goodbye.\n");
+    scanf("");
+    fflush(stdin);
+    return 0;
+}
+```
+</CodeBlock>
+
+## Stretch Task 2
+
+Allow the user to select from multiple username accounts and check the password that is related to that username.
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+#include <string.h>
+
+int main(void)
+{
+    char username[16];
+    char password[16];
+    char possibleUsernames[5][16] = {"alonso", "nick", "chris", "cara", "kiera"};
+    char possiblePasswords[5][16] = {"hello", "this", "is", "a", "password"};
+    int currentUser = -1;
+
+    char usernameCorrect = 0;
+
+    while (!usernameCorrect)
+    {
+        printf("Please enter your username\n");
+        scanf("%s", username);
+        fflush(stdin);
+
+        for (int i = 0; i < sizeof(possibleUsernames) / sizeof(possibleUsernames[0]); i++)
+        {
+            if (!strcmp(username, possibleUsernames[i]))
+            {
+                currentUser = i;
+                usernameCorrect = 1;
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i <CodeBlock 5; i++)
+    {
+        printf("Please enter your password\n");
+        scanf("%s", password);
+        fflush(stdin);
+        if (!strcmp(password, possiblePasswords[currentUser]))
+        {
+            printf("Congratulations %s, you have successfully logged in.\n", username);
+            scanf("");
+            fflush(stdin);
+            return 0;
+        }
+        else
+        {
+            printf("Incorrect password. Please try again.\n");
+        }
+    }
+
+    printf("Too many incorrect attempts. Goodbye.\n");
+    scanf("");
+    fflush(stdin);
+    return 0;
+}
+```
+</CodeBlock>

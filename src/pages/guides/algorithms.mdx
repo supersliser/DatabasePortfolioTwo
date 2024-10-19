@@ -1,0 +1,437 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Algorithms
+---
+
+# Algorithms
+
+An algorithm is a set of steps to solve a problem. These can be as abstract or specific as needed by the situation. Programming is a process of stringing together algorithms to solve a larger problem.
+
+## Parts of an algorithm
+
+### I/O
+
+I/O stands for Input/Output and refers to the general idea of interaction between an algorithm and a user.
+
+An algorithm needs the ability for a user to interact with the algorithm, always with an output. and an optional input.
+
+### Sequence
+
+Sequence is the idea that the list of steps within an algorithm must always be executed in a certain order, and that order doesnt change.
+
+e.g. if a program has 2 lines of code, line 1 will always run before line 2.
+
+### Selection
+
+Selection is the idea of branching an algorithm down separate paths based on a condition (usually a boolean condition which can either be true or false).
+
+### Iteration
+
+Iteration is the concept of executing a step or list of steps multiple times until a condition is true. Essentially forming a cyclic list of steps.
+
+## Algorithmic Thinking
+
+To be able to work well with algorithms, there are certain mental processes and mindsets that should be adopted.
+
+### Algorithm
+
+This is the idea of viewing any problem as a list of steps that need to be completed.
+
+### Pattern Recognition
+
+This is the idea of watching for patterns in your own code in order to:
+- Avoid writing the same code twice, instead using functions or iteration to handle repeating code.
+- Recognise where algorithm steps are similar to steps in other algorithms and using a similar approach to achieve it.
+- Recognise where a problem is similar to a problem that another programmer has already overcome and using their code to assist your own.
+
+### Decomposition
+
+This is the idea of breaking a problem down into smaller sub-problems which can then be handelled by individual algorithms. Rather than attempting to understand an entire algorithm with a series of smaller algorithms, sometimes it may be more effective to handle each sub-algorithm separately and then only consider the way these link together.
+
+### Abstraction
+
+Abstraction is all about hiding information that is not important to the current situation. This could be hiding information from the user about the inner workings of the program so that they only need to focus on inputs and outputs. Or it could be hiding information from programmers such as yourself to make an algorithm easier to understand, or from other programmers so that they simply trust your algorithms validity and do not attempt to understand it.
+
+## Optimisation
+
+A big part of computer science is making sure that an algorithm is as efficient as possible. In physics, efficiency is a measure of useful energy coming out against total energy going in. In Computer Science, this term is given a broader definition.
+
+Efficiency could refer to:
+- Monetary cost to build
+- Monetary cost to run
+- speed to program
+- speed to run
+- energy efficiency
+- memory / storage efficiency
+
+Although, in most situations, we refer to the speed to run an algorithm.
+
+One method of measuring the speed of an algorithm is called Big O Notation.
+
+### Big O Notation
+
+In Big O Notation, a function O(n) is defined where n is the number of data items that need to be processed and O(n) is the number of operations needed to complete the algorithm.
+
+Algorithms are generally catagorised into a few main types based on the Big O function.
+
+>These are listed from fastest to slowest
+
+Table of algorithms.
+
+| Name         | Function          | Description                                                                                                                                | Link                          | Example                            |
+| ------------ | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- | ---------------------------------- |
+| Constant     | `O(n) = 1`        | The speed of an algorithm does not change based on the number of data items                                                                | [constant](#constant)         | `O(1000) = 1`                      |
+| Logarithmic  | `O(n) = log(n)`   | The number of data items is halved after each operation                                                                                    | [logarithmic](#logarithmic)   | `O(1000) = 3`                      |
+| Linear       | `O(n) = n`        | The number of operations is equal to the number of data items                                                                              | [linear](#linear)             | `O(1000) = 1000`                   |
+| Linearithmic | `O(n) = n log(n)` | The number of operations is equal to the number of data items halved for each operation, then multiplied by the total number of data items | [linearithmic](#linearithmic) | `O(1000) = 3000`                   |
+| Polynomial   | `O(n) = n^2`      | The number of operations is equal to the number of data items to the power of the magnitude of nested loops                                | [polynomial](#polynomial)     | `O(1000) = 1000000`                |
+| Exponential  | `O(n) = 2^n`      | The number of operations is equal to 2 to the power of the number of data items                                                            | [exponential](#exponential)   | `O(1000) = 1.07150860718 x 10^301` |
+| Factorial    | `O(n) = n!`       | The number of operations is too high for any computer to complete in a reasonable amount of time, give up                                  | [factorial](#factorial)       | `O(1000) = 4 x 10^2567`            |
+
+> Anything worse than polynomial is considered bad practice, a better method should be found.
+
+#### Constant
+
+A constant algorithm is defined as `O(n) = 1`
+
+It is where the speed of an algorithm does not change based on the number of data items.
+
+e.g.
+
+```py
+def func(n):
+    print("hi")
+```
+
+#### Logarithmic
+
+A logarithmic algorithm is defined as `O(n) = log(n)`
+
+It is where the number of data items that an algorithm has to deal with is halved with each operation.
+
+e.g. 
+
+```py
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    while left <= right:
+        mid = left + (right - left) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+```
+
+#### Linear
+
+A linear algorithm is defined as `O(n) = n`
+
+It is where the number of operations is equal to the number of data items it has to deal with.
+
+This is easily recognised by a loop with no nested loops.
+
+e.g.
+
+```py
+def linearSearch(items, target):
+    for i in items:
+        if i == target:
+            return i:
+    return -1
+```
+
+#### Linearithmic
+
+A linearithmic algorithm is defined as `O(n) = n log(n)`
+
+It is where the number of data items is halved by each operation, but this process of halving is looped by the total number of items.
+
+e.g.
+
+```py
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    # Divide the list into two halves
+    mid = len(arr) // 2
+    left_half = arr[:mid]
+    right_half = arr[mid:]
+    
+    # Recursively sort each half
+    left_sorted = merge_sort(left_half)
+    right_sorted = merge_sort(right_half)
+    
+    # Merge the sorted halves
+    return merge(left_sorted, right_sorted)
+
+def merge(left, right):
+    result = []
+    i, j = 0, 0
+    while i < len(left) and j < len(right):
+        if left[i] < right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+```
+
+#### Polynomial
+
+A polynomaial algorithm is defined as `O(n) = n^a`
+
+It is where the algorithm contains a nested loops.
+
+e.g.
+
+```py
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        # Flag to optimize by stopping early if no swaps occur
+        swapped = False
+        for j in range(n - i - 1):
+            if arr[j] > arr[j + 1]:
+                # Swap adjacent elements if they are in the wrong order
+                arr[j], arr[j + 1] = arr[j + 1], arr[j]
+                swapped = True
+        # If no swaps occurred, the list is already sorted
+        if not swapped:
+            break
+    return arr
+```
+
+#### Exponential
+
+An exponential algorithm is defined by `O(n) = a^n`
+
+It is an algorithm where, with each iteration, a more loops are added
+
+e.g.
+
+```py
+def fibonacci_recursive(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2)
+```
+
+#### Factorial
+
+A factorial algorithm is defined by `O(n) = n!`
+
+It is an algorithm where the number of operations is equal to the product of all subsequent numbers (`O(5) = 1x2x3x4x5 = 120`)
+
+e.g. The travelling salesman problem, in which a program must calculate the fastest route between every town in the world without travelling to the same town twice.
+
+# Standard Algorithms
+
+There are some algorithms which are so commonly used that you should be aware of them.
+
+## Searching Algorithms
+
+Searching algorithms are used to find a specific element in an array based on a predicate (a condition to test against each element to see if it is the element being searched for)
+
+### Linear Search
+
+The linear search is a basic searching algorithm that goes through the list in order and checks each item, if the item matches the predicate then it is returned.
+
+```cs
+static int LinearSearch(int[] arr, int target)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            if (arr[i] == target)
+                return i; // Found the target element at index i
+        }
+        return -1; // Target element not found in the array
+    }
+```
+
+This has an average speed of `O(n) = n`
+This has a best case speed of `O(n) = 1`
+This has a worst case speed of `O(n) = n`
+
+### Binary Search
+
+The binary search is a more advanced searching algorithm that only works on a sorted list.
+
+It goes to the center of the list, checks to see if the predicate is greater than, less that or eqaul to the element.
+- If it is equal then the search is complete
+- If it is less than then the greater half of the list is deleted
+- If it is greater than then the lesser half of the list is deleted
+This is repeated recursively until the predicate is equal or the list has no more items.
+
+```cs
+static int BinarySearch(int[] arr, int target)
+    {
+        int left = 0;
+        int right = arr.Length - 1;
+
+        while (left <= right)
+        {
+            int mid = left + (right - left) / 2;
+
+            if (arr[mid] == target)
+                return mid; // Found the target element at index mid
+            else if (arr[mid] < target)
+                left = mid + 1; // Search the right half
+            else
+                right = mid - 1; // Search the left half
+        }
+
+        return -1; // Target element not found in the array
+    }
+```
+
+This has an average speed of `O(n) = log(n)`
+This has a best case speed of `O(n) = 1`
+This has a worst case speed of `O(n) = log(n)`
+
+## Sorting algorithms.
+
+The purpose of sorting algorithms is to sort a list of numbers from lowest to highest
+
+### Bubble Sort
+
+A bubble sort is a basic sorting algorithm which works by comparing each item in a list with the next item in the list, then flipping the order of these 2 items if they are not in the right order. Then repeating this for each item in the list, then repeating multiple passes of this process for each item - 1.
+
+```cs
+static void BubbleSort(int[] arr)
+    {
+        int n = arr.Length;
+        bool swapped;
+
+        for (int i = 0; i < n - 1; i++)
+        {
+            swapped = false;
+
+            for (int j = 0; j < n - i - 1; j++)
+            {
+                if (arr[j] > arr[j + 1])
+                {
+                    // Swap arr[j] and arr[j + 1]
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    swapped = true;
+                }
+            }
+
+            // If no two elements were swapped in the inner loop, the array is already sorted
+            if (!swapped)
+                break;
+        }
+    }
+```
+
+The average speed of a bubble sort is `O(n) = n^2`
+The worst case speed of a bubble sort algorithm is `O(n) = n^2`
+The best case speed of a bubble sort is `O(n) = n`
+
+### Insertion Sort
+
+An insertion sort is an algorithm which works by taking an item, then comparing it against each element in the list until that element is greater than the current item, at which point the item will then be inserted in the list just below the greater element. This is then repeated for each item, then that process is repeated for each item -1
+
+```cs
+static void InsertionSort(int[] arr)
+    {
+        int n = arr.Length;
+        for (int i = 1; i < n; i++)
+        {
+            int key = arr[i];
+            int j = i - 1;
+
+            // Move elements greater than key to the right
+            while (j >= 0 && arr[j] > key)
+            {
+                arr[j + 1] = arr[j];
+                j--;
+            }
+
+            arr[j + 1] = key;
+        }
+    }
+```
+
+The average speed of an insertion sort is `O(n) = n^2`
+The worst case speed of an insertion sort is `O(n) = n^2`
+The best case speed of an insertion sort is `O(n) = n`
+
+### Merge Sort
+
+A merge sort works by splitting a list down until it is only 2 components, then slowly building it back up by placing the items in order.
+
+```cs
+static void Merge(int[] arr, int left, int mid, int right)
+    {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        int[] leftArr = new int[n1];
+        int[] rightArr = new int[n2];
+
+        // Copy data to temporary arrays
+        for (int i = 0; i < n1; i++)
+            leftArr[i] = arr[left + i];
+        for (int j = 0; j < n2; j++)
+            rightArr[j] = arr[mid + 1 + j];
+
+        // Merge the two arrays
+        int k = left;
+        int i1 = 0, i2 = 0;
+        while (i1 < n1 && i2 < n2)
+        {
+            if (leftArr[i1] <= rightArr[i2])
+            {
+                arr[k] = leftArr[i1];
+                i1++;
+            }
+            else
+            {
+                arr[k] = rightArr[i2];
+                i2++;
+            }
+            k++;
+        }
+
+        // Copy remaining elements from leftArr (if any)
+        while (i1 < n1)
+        {
+            arr[k] = leftArr[i1];
+            i1++;
+            k++;
+        }
+
+        // Copy remaining elements from rightArr (if any)
+        while (i2 < n2)
+        {
+            arr[k] = rightArr[i2];
+            i2++;
+            k++;
+        }
+    }
+
+    static void MergeSort(int[] arr, int left, int right)
+    {
+        if (left < right)
+        {
+            int mid = left + (right - left) / 2;
+
+            MergeSort(arr, left, mid);
+            MergeSort(arr, mid + 1, right);
+
+            Merge(arr, left, mid, right);
+        }
+    }
+```
+
+The average, best case and worst case speed of a merge sort algorithm is `O(n) = n log(n)`

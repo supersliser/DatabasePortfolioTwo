@@ -1,0 +1,261 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Object Oriented Programming
+---
+
+# Object Oriented Programming
+
+> Note: any code without a specified language on this page can be assumed to be C#
+
+Object Oriented Programming (OOP) is a paradigm of programming in which code is divided into [classes](#class) which can then be created into objects.
+
+## Class
+
+A Class is essentially a template through which objects can be created. A class has 2 main components, [properties](#properties) and [methods](#methods).
+
+### Properties
+
+A property is a variable that is global to a class, it can be accessed by any method within a class.
+
+Properties only need to be defined in a statically typed language (e.g. C#).
+
+```cs
+class TestClass {
+    int property1 = 0;
+    char[] property2 = "Hello";
+    float property3 = 3.5f;
+}
+```
+
+Meanwhile in inferred type languages such as python, properties are defined within the [constructor](#constructor).
+
+```py
+class TestClass:
+    def __init__(self):
+        self.property1 = 0;
+        self.property2 = "Hello"
+        self.property3 = 3.5f
+```
+
+### Methods
+
+A method is essentially a function within a class. This function is within the scope of any property within the class.
+
+There are a few reserved methods that all classes need to run. Although, it should be noted that most programming languages will create these for you so you do not need to create them yourself.
+
+#### Constructor
+
+The constructor method is run as soon as the class is [instantiated](#instantiation).
+
+In C#, this is defined by an identifier that is the same as the identifier of the class.
+
+```cs
+class TestClass {
+    int startingVar
+    TestClass(int var1) {
+        startingVar = var1;
+    }
+}
+```
+
+#### Deconstructor
+
+The deconstructor method is run as the object is [destatiated](#instantiation).
+
+In C#, this is defined by ~ followed by the identifier of the class.
+
+```cs
+class TestClass {
+    int startingVar
+    ~TestClass() {
+        startingVar = 0;
+    }
+}
+```
+
+### Access Modifiers
+
+A [property](#properties) or [method](#methods) can have an access modifier assigned to it. There are 3 options:
+- Public, where a property or method is accessible both inside the class and outside the [class](#dot-accessor).
+- Protected, where a property or method is accessible inside of the base class and [sub class](#inheritance).
+- Private, where a property or method is only accessible within the current class.
+
+This is written by specifying the access before the property or method
+
+```cs
+class TestClass {
+    public int property1;
+    protected string property2;
+
+    private method1() {
+
+    }
+}
+```
+
+## Instantiation
+
+For a class to be used it must be instantiated. To do this, it must be assigned as a variable.
+
+```cs
+class TestClass {
+    int property1 = 0;
+    string property2 = "Hello";
+    float property3 = 3.5f;
+}
+
+TestClass x = new TestClass();
+```
+
+In the above code, the `new` keyword is used to instantiate the object and assign it to the variable x.
+
+> Note: In programming languages with access to pointers, a pointer to the object is always returned from instantiation, rather than the actual value.
+
+## Dot Accessor
+
+An object can have any public properties or methods accessed from outside the class using the **dot accessor**.
+
+e.g.
+```cs
+class TestClass {
+    int property1 = 0;
+    string property2 = "Hello";
+    float property3 = 3.5f;
+}
+
+TestClass x = new TestClass();
+x.property1 = 2;
+```
+
+## Features of OOP
+
+Object Oriented Programming has many different features which separate it from other paradigms. These features are:
+
+- [Inheritance](#inheritance)
+- [Encapsulation](#encapsulation)
+- [Polymorphism](#polymorphism)
+
+### Inheritance
+
+Inheritance is the capacity of a class to inherit properties or methods from other classes.
+
+The class which is being inherited from is called the base class, the children of this base class are called subclasses.
+
+```cs
+class baseClass {
+    protected int i = 0;
+}
+
+class subClass : baseClass {
+    public subClass() {
+        base.i = 5;
+    }
+}
+```
+Above is an example of inheritance working in C#, notice how `i` is defined in the base class, but then accessed in the subclass by referring to the `base` keyword.
+In C#, inheritance is defined by stating the sub class `:` base class in the declaration. Other languages do this differently such as JavaScript which uses the keyword `extends`
+
+```js
+class baseClass {
+    
+}
+
+class subclass extends baseClass {
+
+}
+```
+
+#### Overriding
+
+When inheriting a class, you may wish to make changes or add increased functionality to a method. This can be achieved with overloading.
+
+To achieve this, both classes must feature a method with the same identifier, must have the same passed arguements and the same return type.
+
+```cs
+class baseClass {
+    void virtual func() {
+        return;
+    }
+}
+class subClass : baseClass {
+    void override func() {
+        console.writeline("hi")
+        base.func();
+    }
+}
+```
+
+Notice the keywords `virtual` and `override`, these cause a function to be available to be overridden and to override a virtual function respectively.
+
+You'll notice the overriding function also has `base.func();` this will cause the overridden function to run as well.
+
+### Encapsulation
+
+Encapsulation is the principle that an object should contain all data about that object and should not be reliant upon other objects that are outside of that object.
+
+### Polymorphism
+
+Polymorphism is the concept that a single class should be able to achieve many goals. There are multiple ways of achieving this.
+
+#### Passed types
+
+One method is through passed types, this is a feature only available in some languages. It is achieved by specifying a type with the class definition which can then be accessed within the class definition itself.
+
+```cs
+class linkedList<T> {
+    T items;
+    int itemCount;
+    //etc...
+}
+```
+
+This means that a single linkedList class can be used to store any data type, rather than needing to define a separate class for each data type.
+
+#### Overloading Methods
+
+Another is by overloading methods within a class, this is where a class can contain multiple methods with the same identifier and return type, but different passed parameters.
+
+```cs
+class baseClass {
+    void hello(string greeting) {
+        console.writeline(greeting);
+    }
+    
+    void hello(int greeting) {
+        switch (greeting) {
+            case 1:
+                console.writeline("Hello");
+                break;
+            case 2:
+                console.writeline("Hi");
+                break;
+        }
+    }
+
+    void hello(int greeting, string greetingStr) {
+        console.writeline(greetingStr + greeting.toString());
+    }
+
+    void hello() {
+        console.writeline("hello");
+    }
+}
+```
+
+All code in the above class is valid, however the code in the next few is invalid
+
+```cs
+class baseClass {
+    void hello(string greeting) {
+
+    }
+
+    void hello(string greetingVariable) {
+        //this is invalid as the type of parameter is the same
+    }
+
+    string hello(string greeting) {
+        //this is invalid as the return type has been changed
+    }
+}
+```

@@ -1,0 +1,602 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: C
+---
+
+# A basic guide to C.
+
+C is a modularised low level systems language.
+
+This means that it gives direct access to control over memory with very little abstraction. This means that to use the language, you will need a certain level of knowledge in how a computer works to be able to master this language.
+
+You may have heard of another language called C++, this language is a superset of C, meaning anything you can achieve in C can be done in C++ with no changes to the code.
+
+## Variables
+
+A variable is a **block of memory** which is **temporarily** reserved for data to be stored **while the program is running**.
+
+### Components of a variable.
+
+A variable has 4 main components:
+- [Identifier](#identifiers)
+- [Data Type](#data-types)
+- [Initial Value](#declaring-a-variable)
+- [Scope](#scope)
+
+### Declaring a variable
+
+To declare a variable, you must specify a **type**, followed by an **identifier**, followed by an **optional initial value**.
+
+> Note: An initial value is not required but is strongly recommended, as otherwise it can lead to unpredictable results.
+
+```c
+int identifier = 0;
+```
+
+### identifiers
+
+The identifier is essentially the name of the variable. It can be anything and does not effect the data inside. However there are some rules:
+- It must not be more than 1 word.
+- It must not be any of the reserved words.
+- It cannot contain any punctuation other than "_".
+
+>If you want a variable with more than 1 word, consider using **camelCase** or **snake_case**
+
+### Scope
+
+The scope of a variable is the area of the code in which it can be accessed.
+
+You can tell the scope of a variable by where it was declared.
+
+Scope can be created using `{}`.
+
+```c
+{
+    int x = 5;
+
+    x = 8; //x is in scope here as it is the same scope as where it was declared
+
+    {
+        x = 6; //x is in scope here as it is a scope less than where it was declared
+        int y = 9;
+    }
+
+    y = 5; //y is not in scope here as it is in a scope greater than the scope where it was declared
+    x = 7; //x is is scope here as it is the same scope as where it was intially declared
+
+    {
+        y = 7; //y is not in scope here as it is in a different scope to the scope where it was declared.
+    }
+}
+```
+
+### Data Types
+
+All data inside of a computer is a number. A data type allows the computer to interpret a number or group of numbers in a certain way. For example, if a number is defined as an integer then the number 65 will be interpreted as a 65. However, if this number is being stored as a character then it will be interpreted as the letter "a".
+
+There are different types of data types.
+
+#### Static Data Types
+
+| Name           | Symbol | Description                                                                 | Size in ram       | Declaration        |
+| -------------- | ------ | --------------------------------------------------------------------------- | ----------------- | ------------------ |
+| integer        | int    | Whole number between -2,147,483,648 and 2,147,483,647                       | 4 bytes (32 bits) | `int x = 65;`      |
+| character      | char   | Single character in extended ASCII (can also be a number between 0 and 255) | 1 byte (8 bits)   | `char x = "a";`    |
+| Floating point | float  | Decimal point number with variable fraction precision                       | 4 bytes (32 bits) | `float x = 3.22f;` |
+| Boolean        | char   | if 0 then is false, otherwise is true                                       | 1 byte (8 bits)   | `char x = 1;`      |
+| Null           | void   | A null variable                                                             | 0 bytes (0 bits)  | `void x;`          |
+
+>To get the number of bytes of any given data type, use `sizeof(x)` where x is the data type to see the size of."
+
+#### Casting data types
+
+To convert from 1 data type to another is called casting. By default, any data type can be passed to a char but not all chars can be passed to ints and floats.
+
+```c
+int x = 65;
+
+char y = (char)x //y will now be "a"
+```
+
+#### Pointers
+
+Every single variable is stored in memory, and has 2 parts, the location and the value. When you access a variable you generally access the value, however, you can also access the location using a pointer.
+
+For each data type, there is an equivelant pointer type which can be used.
+
+```c
+int x;
+
+int* pointer_to_x; //this is a pointer
+
+char *pointer; //this is also a pointer
+```
+
+To convert a variable to a pointer you can use `&`. This is called getting a reference.
+
+```c
+int x;
+
+int* pointer_to_x = &x;
+```
+
+To get the value where a pointer points to (convert a pointer to a value) you can use `*`. This is called derefencing.
+
+```c
+int x;
+
+int* pointer_to_x = &x;
+
+int y = *pointer_to_x;
+```
+
+You can also get a pointer to a pointer
+
+```c
+int x;
+
+int* pointer_to_x = &x;
+
+int** pointer_to_pointer_to_x = &pointer_to_x;
+```
+
+You may be wondering where this is useful, it is used in [dynamic arrays](#dynamic-arrays) and [function arguements](#arguements)
+
+#### Arrays
+
+An array is a sequential collection of variables with the same data type.
+
+A bit of terminology:
+- An indidividual item in an array is called an element
+- The number of an element in an array is called its index which starts at 0
+
+e.g. given the array `[5, 6, 7]`, the index of the element 5 is 0, and the element at index 2 is 7.
+
+##### Static Arrays
+
+Once an array has been declared, the number of items in that array should not be changed.
+
+```c
+int x[5] = [1, 4, 6, 3, 1];
+```
+
+The above code creates an array with 5 elements and fills the array with the items [1, 4, 6, 3, 1] in that order.
+
+##### Dynamic Arrays
+
+A dynamic array is an array which can change size after being declared, this relys on pointers.
+
+Inside of memory, an array stores each element in an array consecutively. In that each element appears in order, 1 after the other with no breaks or interruptions.
+
+The identifier of the array is technically a pointer to the first element of the array, where the square brackets specify an offset from this location. So `[0]` is the first element of the array as it is the pointer + 0, the second element is `[1]` as it is the first item + 1.
+
+However this could also be written as:
+
+```c
+int x[3] = [5, 3, 8];
+
+int first_element = *x;
+int second_element = *(x + (1 * sizeof(int)))
+int third_element = *(x + (2 * sizeof(int)))
+```
+
+Lets break down `second_element`. it is a pointer (`*`) to the location of the first element of `x` plus the index multiplied by the size of the data type of the array (`int`).
+
+With a static array, the computer is able to predict how big the array will be. Therefore it is stored in a part of the memory called the **call stack**. This is memory that is automatically reserved for the specific program. However, the computer cannot predict the size of a dynamic array. Therefore it is stored in a place called **the heap** which is shared by all programs running on the computer at the time.
+
+Because of this, to reserve memory for a dynamic array, you have to specificly tell the program how much should be reserved using [malloc or calloc](#dynamic-memory)
+
+#### Aggregate Data Types
+
+It is possible to make your own data type out of other data types. This is called an aggregate data type. Also known as a structure.
+
+For example, an ARGB colour:
+
+```c
+struct ARGB_colour {
+    float a = 1;
+    int r = 0;
+    int g = 0;
+    int b = 0;
+} typedef ARGB_colour;
+
+ARGB_colour Colour_Variable;
+```
+
+>Note: the typedef part is not required but is strongly recommended otherwise you will need to specify struct each time you use the type.
+
+### Dynamic Memory
+
+When a variable must be stored in the heap, it must be given a specific amount of memory which is determined by the programmer.
+
+This can be done with 1 of 3 functions:
+- [`malloc()`](#malloc)
+- [`calloc()`](#calloc)
+- [`realloc()`](#realloc)
+
+#### Malloc
+
+The malloc command is the most versatile of the 3 as it simply requires the total number of bytes as an integer to be specified and returns a pointer to the first byte of this.
+
+```c
+int* x = (int*)malloc(5 * sizeof(int))
+```
+
+#### Calloc
+
+The calloc command is used to allocate ram for an array. It takes 2 values, the number of elements and the size of each element.
+
+```c
+int* x = (int*)calloc(5, sizeof(int));
+```
+
+#### Realloc
+
+To realloc command is used to alter the size of a memory assignment. This takes 2 values, the pointer to the assignment you would like to alter and the new size in bytes (similar format to [malloc](#malloc))
+
+```c
+int* x = (int*)calloc(5, sizeof(int));
+realloc(x, 10 * sizeof(int));
+```
+
+### Strings
+
+A string is an array of chars to form words and phrases. Generally it is a [dynamic array](#dynamic-memory)
+
+## Functions
+
+A Function is a block of code which can be called and executed from within another block of code.
+
+### Declaration
+
+To declare a function, you must specify 4 components:
+- [Return type](#returns)
+- [Identifier](#identifiers)
+- [Passed arguements](#arguements)
+- Code
+
+```c
+int addOne(int input) 
+{
+    return input + 1;
+}
+```
+
+>A function cannot be defined inside of another function in C.
+
+### Calling a function
+
+When you define a function, it doesnt actually run. To run a function, it must be called (the exception to this is [the main function](#main-function)).
+
+When you call a function, essentially you can imagine the code inside of the function being copy/pasted to the location where the function was called.
+
+```c
+int addOne(int input) 
+{
+    return input + 1;
+}
+
+///some code
+int x = addOne(5);
+```
+
+when ran would essentially be:
+
+```c
+int x = 5 + 1;
+```
+
+A function can be called an infinite number of times but must be defined before it is called.
+
+### Main Function
+
+When writing code, you may have noticed that all programs have to involve exactly 1 `main()` function and must always have 1 of the 2 formats.
+
+```c
+int main(void) {
+    //program
+    return 0; //return 0 if program ran and exited successfully
+}
+
+int main(int argc, char *argv[])
+{
+    //progra
+    return 0;
+}
+```
+
+### Arguements
+
+A function allows you to input variables that can be used within the function. These are called **arguements** and to input a variable to a function is called **passing a variable**
+
+These must be specified within the `()` of the declaration.
+
+An arguement is specified the same way as [declaring a variable.](#declaring-a-variable)
+
+```c
+int addOne(int number) {
+    return number + 1;
+}
+
+int addTwoNumbers(int numberOne, int numberTwo) {
+    return numberOne + numberTwo;
+}
+```
+
+When passing a variable, the value it was at before passing will not be edited within the function. If you wish for the variable to be edited within the function, you may pass be reference as a posed to passing by value.
+
+To pass by reference, you must pass a pointer to to the function instead of the actual value.
+
+```c
+void addOne(int* number) {
+    number = number + 1;
+}
+
+int x = 5;
+int y = addOne(x);
+```
+
+### Returns
+
+All functions have a return type. If you don't wish for a function to return any data, have it return `void`.
+
+A function can only return 1 data type, if you wush to return multiple types then it must return an [aggregate type](#aggregate-data-types)
+
+To return data from a function, use the `return` keyword.
+
+```c
+void function() {
+    return;
+}
+
+float Pi() {
+    return 3.14152653589;
+} 
+```
+
+>When the return keyword is reached, a function exits, any code beneath the return statement will not run.
+
+### String Functions
+
+There are functions that can be used to assist with [strings](#strings).
+
+To access these functions you must [import a library](#external-libraries) called `string.h`
+
+| Name    | Call       | Description                                                                                                   |
+| ------- | ---------- | ------------------------------------------------------------------------------------------------------------- |
+| Length  | `strlen()` | Returns the length of the string                                                                              |
+| Compare | `strcmp()` | Takes 2 strings, returns 0 is both are identical, returns the difference in size between the first and second |
+| Copy    | `strcpy()` | Copies the second string into the first string                                                                |
+
+## External Libraries
+
+Often when programming, we do not use code written just by yourself or your team, you use code written by other people. These are called libraries.
+
+C has many libraries built in.
+
+To access a library you must **include** its **header file**
+
+```c
+#include <stdio.h>
+#include <string.h>
+```
+
+All include statements must be declared at the top of the file before any other functions or variables.
+
+## Interactivity
+
+An essential part of a program is to allow the user to enter data for it to work with, as well as display data for the user to see. This process is called I/O (input / output)
+
+The most basic form of I/O is a terminal (sometimes also called a console, shell or CLI (command line interface)).
+
+To access I/O functions you must include stdio.h
+
+### Output
+
+Data can be outputted to the terminal using the command `printf()`
+
+```c
+printf("Hello World");
+```
+
+To output the contents of a variable, you must pass a string with a [placeholder](#placeholders) and the relevant variables passed as separate arguements.
+
+```c
+int x = 5;
+int y = 7
+printf("the numbers %d and %d added together are %d", x, y, x + y);
+```
+
+### Inputs
+
+To input data into the program from the terminal, you use the function `scanf()`. This requires you to use a [placeholder](#placeholders) to determine the type of data being inputted as well as a pointer to the variable where this data should be stored.
+
+```c
+int x = 0;
+scanf("%d", &x);
+```
+
+>After running `scanf()`, it is good practice to run `fflush(stdin)` to clear the input buffer (a temporary storage where inputs are stored before being transferred to the variable in your program).
+
+### placeholders
+
+| Symbol | Type           |
+| ------ | -------------- |
+| `"%d"` | Integer        |
+| `"%f"` | Floating point |
+| `"%s"` | String         |
+
+>`\n` will create a new line in the terminal.
+
+## Arithmetic Operators
+
+These operators are mathematical and return the same data type as the first arguement.
+
+| Name      | Symbol | Description                                                                        | Example                   |
+| --------- | ------ | ---------------------------------------------------------------------------------- | ------------------------- |
+| Add       | `+`    | Adds 2 numbers together                                                            | `int x = 1 + 1` returns 2 |
+| Subtract  | `-`    | Subtracts the second number from the first                                         | `int x = 2 - 1` returns 1 |
+| Multiply  | `*`    | Multiplies 2 numbers together                                                      | `int x = 2 * 3` returns 6 |
+| Divide    | `/`    | Divides the second number by the first                                             | `int x = 8 / 2` returns 4 |
+| Exponent  | `^`    | Gives the first number to the power of the second                                  | `int x = 3 ^ 2` returns 9 |
+| Modulus   | `%`    | Takes 2 numbers, integer divides the first by the second and returns the remainder | `int x = 5 % 2` returns 1 |
+| Increment | `++`   | Adds 1 to a number                                                                 | `int x = 5++` returns 6   |
+| Decrement | `--`   | Subtracts 1 from a number                                                          | `int x = 5--` returns 4   |
+
+## Selection
+
+Selection is the process of choosing a block of code to run based on a [boolean condition](#conditions)
+
+### Conditions
+
+To make a boolean choice, you must test a condition. To do this you must compare 2 data items using a boolean operator.
+
+>For the purposes of this, assume `char x = 67;`.
+
+| Name                  | Symbol | Description                                                                         | Example                                           |
+| --------------------- | ------ | ----------------------------------------------------------------------------------- | ------------------------------------------------- |
+| Equal                 | `==`   | Checks to see if 1 value is equal to another                                        | `x == "c"` returns true                           |
+| Greater Than          | `>`    | Checks to see if a value is greater than another value                              | `x > "a"` returns true                            |
+| Less Than             | `<`    | Checks to see if a value is less than another value                                 | `x < "e"` returns true                            |
+| Not Equal             | `!=`   | Checks to see if a value is **not** equal to another value                          | `x != "7"` returns true                           |
+| Greater than or equal | `>=`   | Checks to see if a value is greater than or equal to another value                  | `x >= "c"` returns true                           |
+| Less than or equal    | `<=`   | Checks to see if a value is less than or equal to another value                     | `x <= "c"` returns true                           |
+| AND                   | `&&`   | Compares 2 values, if both are true then returns true, otherwise returns false      | `1 && 0` returns false                            |
+| OR                    | `||`   | Compares 2 values, if at least 1 is true then returns true, otherwise returns false | `1 || 0` returns true                             |
+| NOT                   | `!`    | Inverts a boolean, converting true to false and false to true                       | `!0` returns true                                 |
+| Exclusive OR          | `^`    | The same as Not Equal                                                               | `1 ^ 0` returns true                              |
+| Left Shift            | `<<`   | Shifts a binary sequence left (multiplying by 2)                                    | `0110 << 2` returns `1000` (equivelant of 6 * 4)  |
+| Right Shift           | `>>`   | Shifts a binary sequence right (integer dividing by 2)                              | `0110 >> 2` returns `0001` (equivelant of 6 // 4) |
+
+### IF Statement
+
+An if statment checks to see whether a condition is true and runs a block of code if it is true.
+
+```c
+int x = 1;
+if (x == 1)
+{
+    //code
+}
+```
+
+An else statment will run if the condition is false.
+
+```c
+int x = 1;
+if (x == 1)
+{
+    //code
+}
+else
+{
+    //other code
+}
+```
+
+IF statments can be chained together use `else if` statements
+
+```c
+int x = 1;
+if (x == 1)
+{
+    //code
+}
+else if (x == 2) 
+{
+    //other code
+}
+else
+{
+    //other other code
+}
+```
+
+IF statements can be nested inside of each other. This is called a nested IF
+
+```c
+int x = 1;
+if (x > 1)
+{
+    //code
+    if (x < 52)
+    {
+        //code
+    }
+    //code
+}
+else
+{
+    //other code
+}
+```
+
+### Switch Statement
+
+Sometimes called a case statement, this provides a list like style in comparison to an if statment
+
+>A general rule is that if you need to chain more than 3 IF's then you should try to use a switch.
+
+```c
+int x = 1;
+switch(x) 
+{
+    case 1:
+        //code
+        break;
+    case 2:
+        //code
+        break;
+    default:
+        //code
+        break;
+}
+```
+
+The default statement can be used as an else statment within the switch.
+
+## Iteration
+
+Iteration is the ability to run code multiple times.
+
+### Unconditional Loops
+
+An unconditional loop will run a set number of times. This is often referred to as a `for` loop.
+
+The for loop has 3 components, separated by `;`:
+1. Start: runs once when the loop is entered
+2. Stop condition: checks at the end of each loop run
+3. Step: runs at the end of each loop run
+
+```c
+for (int i = 0; i < 10; i++) 
+{
+    printf("%d", i);
+}
+```
+
+This loop will run 10 times, each time printing out the number from 1 to 10 to the terminal.
+
+>In this loop, i is a variable which can be accessed within the loop
+
+### Conditional Loops
+
+A conditional loop will run all the time that a condition is true.
+
+```c
+int x = 0;
+while (x < 10)
+{
+    x++;
+}
+```
+
+A while loop can be set to test the condition before the loop is run (meaning it will run 0 or more times) or to check after the loop has been run (meaning it will run 1 or more times).
+
+```c
+int x = 0;
+do
+{
+    x++;
+} while (x < 10)
+```

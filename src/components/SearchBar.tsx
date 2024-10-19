@@ -1,6 +1,10 @@
 import { useState } from "react";
+// Supports weights 400-700
+import "@fontsource-variable/expletus-sans";
+// Supports weights 100-900
+import "@fontsource-variable/exo-2";
 
-export default function SearchBar({ projects }: { projects: any }) {
+export default function SearchBar({ projects, hasLogo }: { projects: any, hasLogo: boolean }) {
   const [searchValue, setSearchValue] = useState("");
 
   const [displayProjects, setDisplayProjects] = useState<any[]>([]);
@@ -43,7 +47,7 @@ export default function SearchBar({ projects }: { projects: any }) {
             onType(event, projects);
           }}
         />
-        <SearchBarResult projects={displayProjects} />
+        <SearchBarResult projects={displayProjects} hasLogo={hasLogo} />
       </div>
     );
   }
@@ -73,7 +77,7 @@ export default function SearchBar({ projects }: { projects: any }) {
   );
 }
 
-export function SearchBarResult({ projects }: { projects: any }) {
+export function SearchBarResult({ projects, hasLogo }: { projects: any, hasLogo: boolean }) {
   return (
     <div
       style={{
@@ -88,12 +92,14 @@ export function SearchBarResult({ projects }: { projects: any }) {
       }}
     >
       {projects.map((project: any) => (
-        <li style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center"}}>
+        <li style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", fontFamily: "Expletus Sans Variable",}}>
+          {hasLogo && (
           <img
             src={"/Logos/" + project.frontmatter.logo}
             alt={"logo for " + project.frontmatter.title}
             style={{width: "30px", height: "30px", marginRight: "10px"}}
           />
+          )}
           <a href={project.url}>{project.frontmatter.title}</a>
         </li>
       ))}

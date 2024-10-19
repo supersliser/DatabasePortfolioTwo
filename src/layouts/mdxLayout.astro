@@ -1,16 +1,22 @@
 ---
-// Supports weights 400-700
 import "@fontsource-variable/expletus-sans";
-// Supports weights 100-900
 import "@fontsource-variable/exo-2";
 import "../styles/mdx.css";
 import PageDirectory from "../components/PageDirectory.astro";
 import PageHeadings from "../components/PageHeadings.astro";
 import SearchBar from "../components/SearchBar";
-import MainPage from "../components/MainPage.astro";
 import Navbar from "../components/Navbar.astro";
+import { undefined } from "astro:schema";
 const { frontmatter, headings } = Astro.props;
-const projects = await Astro.glob("../pages/projects/*.mdx");
+let projects;
+if (frontmatter.url.includes("guides")) {
+  projects = await Astro.glob("../pages/guides/*.mdx");
+} else if (frontmatter.url.includes("projects")) {
+  projects = await Astro.glob("../pages/projects/*.mdx");
+} else {
+  projects = await Astro.glob("../pages/tasks/*.mdx");
+}
+let hasLogo = frontmatter.logo !== undefined;
 ---
 
 <html lang="en">
@@ -25,6 +31,7 @@ const projects = await Astro.glob("../pages/projects/*.mdx");
     <PageDirectory
       projects={projects}
       attachedToSearch={false}
+      hasLogo={hasLogo}
     />
     <PageHeadings headings={headings} />
     <div
@@ -35,7 +42,7 @@ const projects = await Astro.glob("../pages/projects/*.mdx");
     <div
       style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 7vh; left: 21.4%; width: 54.6%; height: 10%; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
     >
-      <SearchBar client:load projects={projects} />
+      <SearchBar client:load projects={projects} hasLogo={hasLogo} />
     </div>
     <main
       style="border-style: solid;position: absolute; top: 22vh; left: 21.4%; width: 44.6%; min-height: 90%; background-color: #000000; color: #ffffff;border-color: #ffffff; border-width: 1px;"
@@ -45,6 +52,7 @@ const projects = await Astro.glob("../pages/projects/*.mdx");
         style="display: flex; flex-direction: row; align-items: start; justify-content: center; margin-top: 5%; margin-left: 20%; margin-right: 25%; flex-wrap:wrap;"
       >
         {
+          frontmatter.tags &&
           frontmatter.tags.map((tag: string) => (
             <a
               style="margin: 0px; padding: 0px; margin-left:10px"

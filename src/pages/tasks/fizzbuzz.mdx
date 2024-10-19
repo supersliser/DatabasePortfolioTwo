@@ -1,0 +1,99 @@
+---
+title: FizzBuzz
+layout: ../../layouts/mdxLayout.astro
+difficulty: 1.7
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+
+# {frontmatter.title}
+
+You are in an interview for a job as an engineer at Quick Lowery Offices.
+
+You are asked to write a standart technical interview program, a FizzBuzz Program.
+
+A FizzBuzz program is described as a program which:
+- [ ] Counts through numbers 1 to 100 (inclusive), outputting each number
+- [ ] Each time it reaches a number divisible by 3 (3, 6, 9, 12, etc...), it replaces the number with the word "fizz"
+- [ ] Each time it reaches a number divisible by 5 (5, 10, 15, etc...), it replaces the number with the word "buzz"
+- [ ] Each time it reaches a number divisible by both 3 and 5 (15, 30, 45, etc...), it replaces the number with the word "fizzbuzz"
+
+## A Basic implementation
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+        if (i % 3 == 0 && i % 5 == 0) {
+            printf("FizzBuzz\n");
+        } else if (i % 3 == 0) {
+            printf("Fizz\n");
+        } else if (i % 5 == 0) {
+            printf("Buzz\n");
+        } else {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
+```
+</CodeBlock>
+
+## A stronger answer
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+        if (i % 3 == 0 || i % 5 == 0) {
+            if (i % 3 == 0) {
+                printf("Fizz");
+            }
+            if (i % 5 == 0) {
+                printf("Buzz");
+            }
+            printf("\n");
+        } else {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
+```
+</CodeBlock>
+
+You can see why this is a stronger answer in the stretch goal
+
+## Stretch goal
+
+Expand this code so that when a number is divisible by 4, it replaces the number with the word "tazz", this word shares the same behaviour as the other words. Words should be in the order "FizzBuzzTazz"
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    for (int i = 1; i <= 100; i++) {
+        if (i % 3 == 0 || i % 5 == 0 || i % 4 == 0) {
+            if (i % 3 == 0) {
+                printf("Fizz");
+            }
+            if (i % 5 == 0) {
+                printf("Buzz");
+            }
+            if (i % 4 == 0) {
+                printf("Tazz")
+            }
+            printf("\n");
+        } else {
+            printf("%d\n", i);
+        }
+    }
+    return 0;
+}
+```
+</CodeBlock>

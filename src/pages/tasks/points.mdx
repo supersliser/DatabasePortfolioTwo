@@ -1,0 +1,103 @@
+---
+title: Point Calculator
+layout: ../../layouts/mdxLayout.astro
+difficulty: 1.3
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+
+# {frontmatter.title}
+
+Quick Lowery Offices FC wants to work on their plays by looking at their recent wins, losses and draws.
+
+You must write a program that can:
+- [ ] Calculate the number of points the team has
+- [ ] Take an input for the number of wins, losses and draws
+
+> A win is worth 3 points, a draw is worth 1 and a loss is worth -1
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    int wins, losses, draws;
+    int total_points;
+
+    // Take input for the number of wins, losses, and draws
+    printf("Enter the number of wins: ");
+    scanf("%d", &wins);
+
+    printf("Enter the number of losses: ");
+    scanf("%d", &losses);
+
+    printf("Enter the number of draws: ");
+    scanf("%d", &draws);
+
+    // Calculate the total points
+    total_points = (wins * 3) + (draws * 1) - (losses * 1);
+
+    // Print the total points
+    printf("Total points: %d\n", total_points);
+
+    return 0;
+}
+
+```
+</CodeBlock>
+
+## Stretch Task 1
+
+Upgrade the program to allow the user to enter a running total.
+
+The program should:
+- [ ] Take W as a win
+- [ ] Take L as a loss
+- [ ] Take D as a draw
+- [ ] Continue accepting input until X is entered
+- [ ] These should also work for lowercase inputs
+
+<CodeBlock client:load>
+```cpp
+#include <stdio.h>
+
+int main() {
+    char input;
+    int total_points = 0;
+
+    printf("Enter match results (W for win, L for loss, D for draw, X to exit): \n");
+
+    while (1) {
+        scanf(" %c", &input);  // Note the space before %c to consume any trailing newline character
+
+        if (input == 'X' || input == 'x') {
+            break;
+        }
+
+        switch (input) {
+            case 'W':
+            case 'w':
+                total_points += 3;
+                break;
+            case 'L':
+            case 'l':
+                total_points -= 1;
+                break;
+            case 'D':
+            case 'd':
+                total_points += 1;
+                break;
+            default:
+                printf("Invalid input. Please enter W, L, D, or X to exit.\n");
+                break;
+        }
+
+        printf("Current total points: %d\n", total_points);
+    }
+
+    printf("Final total points: %d\n", total_points);
+    return 0;
+}
+```
+</CodeBlock>
+
