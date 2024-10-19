@@ -36,13 +36,13 @@ let hasLogo = frontmatter.logo !== undefined;
     />
     <PageHeadings headings={headings} />
     <div
-      class="resize resize2"
+      class="resize"
       style="border-color: #ffffff; border-width: 1px;border-style: solid;position: fixed; top: 0vh; height: 7vh; background-color: #000000; color: #ffffff; z-index: 200; justify-content: space-around; display: flex; flex-direction: column;"
     >
       <Navbar />
     </div>
     <div
-      class="resize resize2"
+      class="resize"
       style="border-color: #ffffff; border-width: 1px;border-style: solid;position: absolute; top: 7vh; height: 10%; background-color: #000000; color: #ffffff; z-index: 100; padding-top: 5vh;"
     >
       <SearchBar client:load projects={projects} hasLogo={hasLogo} />
