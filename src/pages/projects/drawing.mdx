@@ -9,20 +9,40 @@ authors: [
     Thomas Lower
 ]
 logo: C++Logo.webp
+hidden: false
 ---
 import MDXImage from "../../components/MDXImage.astro"
-
+import DrawingUIImage from "../../images/DrawingUI.png"
 
 # {frontmatter.title}
 >Created on: 09/10/2023<br/>
 >Worked on by: {frontmatter.authors}
 
-**This project was developed as a part of my course at [[Bournemouth University]](https://www.bournemouth.ac.uk/).**
+**This project was developed as a part of my course at [Bournemouth University](https://www.bournemouth.ac.uk/).**
 
 ## Goal
 
 The purpose of the project was to introduce me to C++ and SDL2. The program was designed to be able to paint to a canvas and export this as a file, similar to [Microsoft Paint](https://www.microsoft.com/en-gb/windows/paint).
 
-The project uses an object oriented approach, with many techniques from other drawing capable systems, such as line interpolation rather than pixel colouring from Microsoft Onenote.
+## UI
+
+The UI is rather basic as it only needed to provide limited functionality.
+
+<MDXImage src={DrawingUIImage} alt="A screenshot of an empty canvas within the drawing program" />
+
+The UI is responsive to the window size and allows the user to control:
+- Pen Colour by selecting a colour in the UI
+- Pen Thickness using the gradient buttons at the top.
+- Tool Type (from left to right):
+    - Draw
+    - Fill Bucket
+    - Draw Square
+    - Eraser
+
+## Programming Design
+
+The project uses an object oriented approach for both UI and functionality where all UI elements are children of an "Area" Base class. Many techniques used in this project are originally from other drawing capable systems, such as line interpolation rather than pixel colouring from Microsoft Onenote.
+
+## Try it yourself
 
 To view the code and run it yourself (makefile included) find the Github repo [here](https://github.com/supersliser/DrawingProject).

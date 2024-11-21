@@ -9,8 +9,11 @@ authors: [
     Thomas Lower
 ]
 logo: vernos.webp
+hidden: false
 ---
 import MDXImage from "../../components/MDXImage.astro"
+import MDXVideo from "../../components/MDXVideo.astro"
+import MDXSketchfab from "../../components/MDXSketchfab.astro"
 import VernosModel from "../../images/vernosModel.webp"
 import VernosMakeup from "../../images/vernosMakeup.webp"
 import VernosClothing from "../../images/vernosClothing.webp"
@@ -27,24 +30,40 @@ To view the full art station entry, please click [here](https://www.artstation.c
 
 ## Process
 
+### Blender Modelling
+
 The first step was to generate the base mesh, this was imported into [Blender](https://www.blender.org/). Where the softwares sculpt tools were used to give more definition to extremities and create a sense of "sharpness" about the face and body.
 
 <MDXImage src={VernosModel} alt="The sculpted model of Vernos in Blender" />
+
+### Substance Texturing
 
 The next step was to export the model to [Adobe Substance Painter](https://www.adobe.com/products/substance3d/apps/painter.html?sdid=JZBJVTGW&mv=search&mv2=paidsearch&gad_source=1&gclid=Cj0KCQjw3ZayBhDRARIsAPWzx8r_yq2Seq2_hHGmwy8_jZE7jfcrpixWIDVmN9RJXbS8_mlNUO3MlRoaAkoREALw_wcB) so that it could be UVed and Textured. I chose to focus on the makeup of the face with this project.
 
 <MDXImage src={VernosMakeup} alt="A screenshot from substance painter of the face" />
 
+### Rigging
+
 A lesser-known software called [Accurig](https://actorcore.reallusion.com/auto-rig/accurig) was then used to generate a skeleton for this character, after which it was exported to [Autodesk Maya](https://www.autodesk.com/uk/products/maya/free-trial) to be converted to a fully functional rig
 
+### Animation
+
 Maya was also used to generate the animation keyframes
+
+### Clothing
 
 The animation was then exported to [Marvelous Designer](Marvelous Designer) where the model had its costume designed and animated using the software's own physics system.
 
 <MDXImage src={VernosClothing} alt="An image of the character in its rest pose with the clothing fully developed." />
+
+### Groom
 
 Finally, the model was exported to [SideFX Houdini](https://www.sidefx.com/products/houdini/) where it the software's own hair system was used, after which the model was also rendered in Houdini using the Mantra engine.
 
 ## Result
 
 <MDXImage src={VernosRender} alt="A still frame rendered in Houdini after the character was completed." />
+
+<MDXVideo src="https://cdn.artstation.com/p/video_sources/001/940/536/vernosfullanim.mp4" alt="The generated video with audio" />
+
+<MDXSketchfab src="https://sketchfab.com/models/69529d1120da49babfd86191d7624da5/embed?autospin=1&autostart=1&camera=0&transparent=1&ui_theme=dark" alt="A sketchfab of the base model in a pose" />

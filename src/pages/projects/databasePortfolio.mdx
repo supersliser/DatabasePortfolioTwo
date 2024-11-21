@@ -9,9 +9,11 @@ authors: [
     Thomas Lower
 ]
 logo: astrojs.png
+hidden: false
 ---
 import MDXImage from "../../components/MDXImage.astro"
 import ASDImage from "../../images/ASD.png"
+import RehanImage from "../../images/Rehan.png"
 
 
 # {frontmatter.title}
@@ -22,13 +24,19 @@ import ASDImage from "../../images/ASD.png"
 
 ## Inspiration
 
+The layout and design of this website was inspired by the website for the media production group ASD (Andromeda Software Development). You can view their official website by clicking [here](http://www.asd.gr/#the_legend_of_sisyphus).
+
 <MDXImage src={ASDImage} alt="A screenshot from the 'Andromeda Software Development' official website."/>
 
-The layout and design of this website was inspired by the website for the media production group ASD (Andromeda Software Development). You can view their official website by clicking [here](http://www.asd.gr/#the_legend_of_sisyphus).
+However, I found that this website layout did not allow me to properly showcase my various portfolio items, such that I looked at other layouts such as the portfolio for Dr. Rehan Zia. His website can be found [here](https://www.rehanzia.net/). This website features a similar basic layout but makes it easier to express a document.
+
+<MDXImage src={RehanImage} alt="A screenshot from Dr. Rehan Zia's 'People & Portraits' page on his portfolio" />
+
+Despite this new design, I found that there was one major issue, specifically an issue with larger pages. The issue was that these pages became rather difficult to navigate as they could be rather long. While trying to figure out a solution to this concern, I remembered a feature of Markdown files, the existance of headings. I also noticed the Astro Docs which featured a similar navigation as you will see on the desktop version of this site and decided to leverage this.
 
 ## Technologies
 
-This site is developed using [Astro](https://astro.build/) [MDX](https://mdxjs.com/) and then deployed on [vercel](https://vercel.com/home)
+This site is developed using [Astro](https://astro.build/), [MDX](https://mdxjs.com/) & elements of [React](https://react.dev/) to then deployed on [vercel](https://vercel.com/home)
 
 ## See for yourself
 

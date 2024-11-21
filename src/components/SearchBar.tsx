@@ -9,24 +9,36 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
 
   const [displayProjects, setDisplayProjects] = useState<any[]>([]);
 
+  const [FilterType, setFilterType] = useState("Title");
+
   function onType(event: any, projects: any) {
     const searchValue = event.target.value.toLowerCase();
     setSearchValue(searchValue);
     if (searchValue === "") {
-            setDisplayProjects([]);
+      setDisplayProjects([]);
 
     } else {
+      projects = projects.filter((project: any) => {
+        return !project.frontmatter.hidden;
+      })
+
       const filteredProjects = projects.filter((project: any) => {
-        return project.frontmatter.title.toLowerCase().includes(searchValue);
+        if (FilterType === "Title") {
+          return project.frontmatter.title.toLowerCase().includes(searchValue);
+        } else if (FilterType === "Author") {
+          return project.frontmatter.authors.some((author: any) => author.toLowerCase().includes(searchValue));
+        } else if (FilterType === "Tags") {
+          return project.frontmatter.tags.some((tag: any) => tag.toLowerCase().includes(searchValue));
+        }
       });
-            setDisplayProjects(filteredProjects);
+      setDisplayProjects(filteredProjects);
 
     }
   }
 
   if (displayProjects.length > 0) {
     return (
-      <div style={{ textAlign: "center" }}>
+      <div style={{ textAlign: "center", width: "50%", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         {" "}
         <input
           id="search"
@@ -47,12 +59,13 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
             onType(event, projects);
           }}
         />
+        <button style={{ width: "50%", margin: "0 auto", display: "block" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
         <SearchBarResult projects={displayProjects} hasLogo={hasLogo} />
       </div>
     );
   }
   return (
-    <div style={{ textAlign: "center" }}>
+    <div style={{ textAlign: "center", width: "50%", margin: "0 auto", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
       {" "}
       <input
         id="search"
@@ -60,7 +73,7 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
         type="text"
         placeholder="Search Projects"
         style={{
-          width: "50%",
+          width: "100%",
           margin: "0 auto",
           display: "block",
           padding: "10px",
@@ -73,6 +86,7 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
         }}
         value={searchValue}
       />
+      <button style={{ width: "50%", margin: "0 auto", display: "block", borderWidth: "0", backgroundColor: "#222222", color: "#ffffff" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
     </div>
   );
 }
@@ -92,13 +106,13 @@ export function SearchBarResult({ projects, hasLogo }: { projects: any, hasLogo:
       }}
     >
       {projects.map((project: any) => (
-        <li style={{display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", fontFamily: "Expletus Sans Variable",}}>
+        <li style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", fontFamily: "Expletus Sans Variable", }}>
           {hasLogo && (
-          <img
-            src={"/Logos/" + project.frontmatter.logo}
-            alt={"logo for " + project.frontmatter.title}
-            style={{width: "30px", height: "30px", marginRight: "10px"}}
-          />
+            <img
+              src={"/Logos/" + project.frontmatter.logo}
+              alt={"logo for " + project.frontmatter.title}
+              style={{ width: "30px", height: "30px", marginRight: "10px" }}
+            />
           )}
           <a href={project.url}>{project.frontmatter.title}</a>
         </li>

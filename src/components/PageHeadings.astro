@@ -14,7 +14,7 @@ const { headings } = Astro.props;
             "margin-left: " +
             heading.depth * 20 +
             "px; margin-top: " +
-            heading.depth * 10 +
+            (1 / heading.depth) * 50 +
             "px; color: #ffffff; font-family: 'Expletus Sans Variable', system-ui;"
           }
           href={`#${heading.slug}`}

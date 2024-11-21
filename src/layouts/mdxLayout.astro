@@ -2,7 +2,7 @@
 import "@fontsource-variable/expletus-sans";
 import "@fontsource-variable/exo-2";
 import "../styles/mdx.css";
-import PageDirectory from "../components/PageDirectory.astro";
+import PageDirectory from "../components/PageDirectory";
 import PageHeadings from "../components/PageHeadings.astro";
 import SearchBar from "../components/SearchBar";
 import Navbar from "../components/Navbar.astro";
@@ -29,8 +29,9 @@ let hasLogo = frontmatter.logo !== undefined;
   <body>
     <PageDirectory
       projects={projects}
-      attachedToSearch={false}
+      fullSize={false}
       hasLogo={hasLogo}
+      client:load
     />
     <PageHeadings headings={headings} />
     <div
