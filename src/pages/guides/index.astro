@@ -27,7 +27,7 @@ const guides = await Astro.glob("./*.mdx");
           <SearchBar client:load projects={guides} hasLogo={false} />
         </div>
         <div style="height: 75%; width: 50%;">
-          <PageDirectory projects={guides} fullSize />
+          <PageDirectory hasLogo={false} projects={guides} fullSize client:load />
         </div>
       </div>
     </MainPage>
