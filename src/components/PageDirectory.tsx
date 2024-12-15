@@ -59,7 +59,7 @@ export default function pageDirectory({ projects, fullSize, hasLogo }: { project
   }
 
   return (
-    <div style={{ width: "20%", }}>
+    <div style={{ width: "100%", }}>
       {!showOrderBy ? null : <ul style={{ zIndex: "100", position: "relative", top: "50px", left: "10%", width: "80%", height: "100%", overflowY: "auto", backgroundColor: "#000000", color: "#ffffff", borderColor: "#ffffff", borderWidth: "1px", borderStyle: "solid", display: "flex", justifyContent: "start", alignItems: "center", flexDirection: "column" }}>
         <button key={"Title"} onClick={() => setOrderByUtility("Title")} style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", width: "80%", color: "#ffffff", fontFamily: 'Expletus Sans Variable', marginTop: "20px", marginBottom: "20px", marginLeft: "10%", marginRight: "10%" }}>Title</button>
         <button key={"Date"} onClick={() => setOrderByUtility("Date")} style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", width: "80%", color: "#ffffff", fontFamily: 'Expletus Sans Variable', marginTop: "20px", marginBottom: "20px", marginLeft: "10%", marginRight: "10%" }}>Date</button>
@@ -75,7 +75,7 @@ export default function pageDirectory({ projects, fullSize, hasLogo }: { project
               !project.frontmatter.hidden && (
                 <a
                   href={project.url}
-                  style={{ width: "80%", textAlign: "center", color: "#ffffff", fontFamily: 'Expletus Sans Variable', display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: "10px", backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", borderRadius: "10px" }}
+                  style={{ width: "80%", textAlign: "center", color: "#ffffff", fontFamily: 'Expletus Sans Variable', display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", marginTop: "10px", backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", borderRadius: "10px", textOverflow: "ellipsis", whiteSpace: "nowrap", overflow: "hidden" }}
                 >
                   {hasLogo && (
                     <img

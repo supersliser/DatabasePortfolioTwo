@@ -1,0 +1,79 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Super-pixel Importance Sampling
+tags: [
+    C++, SDL, Programming, Ray Tracing
+]
+created: 2024-12-15
+authors: [
+    Thomas Lower
+]
+logo: Sphere.png
+hidden: false
+---
+import MDXImage from "../../components/MDXImage.astro"
+import MDXVideo from "../../components/MDXVideo.astro"
+import rtVideo1 from "../../images/ray_tracer_ray_tracing (1080p).mp4"
+import rtVideo2 from "../../images/ray_tracer_still_ray_tracing (1080p).mp4"
+import samplingGraph from "../../images/samplingGraph.png"
+import image1 from "../../images/raytracerlinear.png"
+import image2 from "../../images/raytracerLinearMoreSamples.png"
+import image3 from "../../images/raytracerLinearMoreIterations.png"
+import image4 from "../../images/raytracerLinearBiggerPixels.png"
+import image5 from "../../images/raytracerRandomised.png"
+import image6 from "../../images/raytracerImportance.png"
+import image7 from "../../images/raytracerImportanceMorePixels.png"
+
+
+# {frontmatter.title}
+>Created on: 13/05/2024<br/>
+>Worked on by: {frontmatter.authors}
+
+This project is based on mathematics from my Advanced Maths unit from Bournemouth University.
+
+The end goal of the project was to produce a realistic renderer capabale of rendering mathematically accurate spheres.
+
+# Sampling Types
+The program currently supports 3 main types of sampling:
+ - [Linear Sampling](#linear-sampling)
+ - [Randomised Sampling](#random-sampling)
+ - [Importance Sampling](#importance-sampling)
+
+## Linear Sampling
+The Linear Sampling algorithm simply works by sampling each pixel a set number of times, and repeating this for every pixel in the window. This provides the most accurate results at the cost of a lack of time efficiency as pixels are not judged on whether they are needed to be rendered.
+
+<MDXImage src={image1} alt="A render from the raytracer using linear sampling with 1 sample per pixel, 1 reflection bounce and 1 real pixel per data pixel"/>
+<MDXImage src={image2} alt="A render from the raytracer using linear sampling with 3 samples per pixel, 1 reflection bounce and 1 real pixel per data pixel"/>
+<MDXImage src={image3} alt="A render from the raytracer using linear sampling with 1 sample per pixel, 3 reflection bounces and 1 real pixel per data pixel"/>
+<MDXImage src={image4} alt="A render from the raytracer using linear sampling with 1 sample per pixel, 1 reflection bounce and 5 real pixels per data pixel"/>
+
+This system also works the least well with super-pixels (virtual pixels that take up the space of multiple real pixels). This is due to the fact that pixels are generated every 1 * pixelSize pixels meaning that superpixels cannot overlap.
+
+## Randomised Sampling
+The Randomised Sampling algorithm works by randomly generating a pixel, this is much faster at the cost of less clear images
+
+<MDXImage src={image5} alt="A render from the raytracer using randomised sampling with 1 sample per pixel, 1 reflection bounce, 1 real pixel per data pixel and 500 random passes"/>
+
+## Importance Sampling
+The Importance Sampling algorithm is based on the randomised sampling algorithm, but performs multiple passes at different pixel sizes, avoid pixels that are found to be empty in previous passes.
+
+<MDXImage src={image6} alt="A render from the raytracer using importance sampling with 1 sample per pixel, 500 passes and 1 real pixel per data pixel"/>
+<MDXImage src={image7} alt="A render from the raytracer using importance sampling with 3 sample per pixel, 500 passes and 4 real pixel per data pixel"/>
+
+### Interactive rendering
+The following videos demonstrate the renderer performing importance sampling over time.
+
+<MDXVideo src={rtVideo1} alt="A video of the raytracer rendering with importance sampling" />
+<MDXVideo src={rtVideo2} alt="A video of the raytracer rendering with importance sampling with a minor fix to improve the quality of renders" />
+
+## Graph of Image Readability over time
+
+This graph demonstrates how the comprehendability of the image increases over time.
+
+<MDXImage src={samplingGraph} alt="A graph of image readability over time" />
+
+The Graph demonstrates that a linear sampler is only useful once completed as before this, it does not contain data from the entire image, just a fraction. The randomised sampler provides much better data part of the way through, however, can still be unclear towards the beginning. My importance sampling algorithm provides the best data early on however, this eventually plateus so that the image is never truly complete.
+
+## See for yourself
+
+The code for this engine can be found on [Github](https://github.com/supersliser/AdvanvedMaths/tree/main/rayTracingFull/sdl2_base). To run this you will need SDL2 and SDL2-image installed as well as g++. It can be built and ran by running the Makefile.
