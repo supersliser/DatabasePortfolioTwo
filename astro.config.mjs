@@ -11,5 +11,9 @@ import react from '@astrojs/react';
 export default defineConfig({
   integrations: [mdx(), react()],
   output: 'server',
-  adapter: vercel()
+  adapter: vercel({
+    webAnalytics: {
+      enabled: true,
+    },
+  })
 });
