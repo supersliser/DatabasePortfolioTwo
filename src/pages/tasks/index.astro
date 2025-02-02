@@ -7,6 +7,7 @@ import PageDirectory from "../../components/PageDirectory";
 import SearchBar from "../../components/SearchBar";
 import MainPage from "../../components/MainPage.astro";
 import "../../styles/mdx.css";
+import "../../styles/projects.css";
 
 const tasks = await Astro.glob("./*.mdx");
 ---
@@ -19,18 +20,15 @@ const tasks = await Astro.glob("./*.mdx");
     <meta name="generator" content={Astro.generator} />
     <title>Tasks | Thomas Lower</title>
   </head>
-  <body style="margin: 0; padding: 0; border-width: 0; overflow-x:hidden">
-    <MainPage title="Tasks Database">
-      <div
-        style="display: flex; flex-direction: column; align-items: center; justify-content: center; padding-top: 10%;position: absolute; top: 100vh; left: 0; width: 100vw; min-height: 100vh; padding-bottom: 40vh; background-color: #000000; color: #ffffff;"
-      >
-        <div style="height: 25%; width: 100%;">
-          <SearchBar client:load projects={tasks} hasLogo={false} />
-        </div>
-        <div style="height: 75%; width: 50%;">
-          <PageDirectory hasLogo={false} projects={tasks} fullSize client:load />
-        </div>
+  <body>
+    <MainPage title="Tasks Database" smallNavBar={true} />
+    <div id="page-container">
+      <div id="search-bar-container">
+        <SearchBar client:load projects={tasks} hasLogo={false} />
       </div>
-    </MainPage>
+      <div id="search-results-container">
+        <PageDirectory hasLogo={false} projects={tasks} fullSize client:load />
+      </div>
+    </div>
   </body>
 </html>

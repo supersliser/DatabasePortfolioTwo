@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  overflow-x: hidden;
+  background-color: #0F0F26;
+}
+
+#content-container {
+  top: 90vh;
+  background-color: #0F0F26;
+  color: #ffffff;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+  justify-content: center;
+}
+
+#content-container div {
+  width: 50vw;
+}
+
+
+
+p, ul {
+  font-size: 1rem;
+  font-family: "Exo 2 Variable", sans-serif;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 3rem;
+  font-family: "Exo 2 Variable", sans-serif;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-family: "Exo 2 Variable", sans-serif;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}

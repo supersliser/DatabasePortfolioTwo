@@ -46,20 +46,23 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
           type="text"
           placeholder="Search Projects"
           style={{
-            width: "50%",
+            width: "100%",
             margin: "0 auto",
             display: "block",
             padding: "10px",
-            border: "4px solid #ccc",
+            border: "4px solid #353459",
             outline: "none",
             borderRadius: "4px",
+            backgroundColor: "#211259",
+            color: "#ffffff",
+
           }}
           value={searchValue}
           onChange={(event) => {
             onType(event, projects);
           }}
         />
-        <button style={{ width: "50%", margin: "0 auto", display: "block" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
+        <button style={{ width: "50%", margin: "0 auto", display: "block", minHeight: "50px" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
         <SearchBarResult projects={displayProjects} hasLogo={hasLogo} />
       </div>
     );
@@ -77,16 +80,18 @@ export default function SearchBar({ projects, hasLogo }: { projects: any, hasLog
           margin: "0 auto",
           display: "block",
           padding: "10px",
-          border: "4px solid #ccc",
+          border: "4px solid #353459",
           outline: "none",
           borderRadius: "4px",
+          backgroundColor: "#211259",
+          color: "#ffffff",
         }}
         onChange={(event) => {
           onType(event, projects);
         }}
         value={searchValue}
       />
-      <button style={{ width: "50%", margin: "0 auto", display: "block", borderWidth: "0", backgroundColor: "#222222", color: "#ffffff" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
+      <button style={{ width: "50%", margin: "0 auto", display: "block", borderWidth: "0", backgroundColor: "#353459", color: "#ffffff", minHeight: "50px", borderBottomRightRadius: "20px", borderBottomLeftRadius: "20px" }} onClick={() => setFilterType(FilterType === "Title" ? "Author" : FilterType === "Author" ? "Tags" : "Title")}>Search By: {FilterType}</button>
     </div>
   );
 }

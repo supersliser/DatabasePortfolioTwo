@@ -1,0 +1,76 @@
+---
+title: Fibonnaci Calculator
+layout: ../../layouts/mdxLayout.astro
+difficulty: 3
+---
+import CodeBlock from "../../components/CodeBlock.jsx"
+
+# {frontmatter.title}
+
+## Explanation
+
+The Fibonnaci Sequence is a mathematical sequence of numbers defined by fib(n) = fib(n-1) + fib(n-2).
+
+This is to say that for any given number in the Fibonnaci sequence, that number is the sum of the previous 2 numbers.
+
+The first 10 numbers are as follows:
+- 0
+- 1
+- 1
+- 2
+- 3
+- 5
+- 8
+- 13
+- 21
+- 34
+
+The Fibonnaci Sequence is famous for being a test of a programmers ability to optimise an algorithm as there are 2 possible methods. The recursive method with an efficiency of O(n) = 2^n and the iterative method with an efficiency of O(n) = n (read more about optimising alogorithms [here](../guides/algorithms#optimisation)).
+
+## Task
+Your task is to write a function which takes a number and calculates the nth Fibonnaci number using the recursive method.
+
+> Test Input: 7, expected output: 8
+
+<CodeBlock client:load>
+```cpp
+int fibonacci_recursive(int n) {
+    // Base cases: if n is 0 or 1, return n
+    if (n <= 1) {
+        return n;
+    }
+    // Recursive case: sum of the two preceding numbers
+    else {
+        return fibonacci_recursive(n - 1) + fibonacci_recursive(n - 2);
+    }
+}
+```
+</CodeBlock>
+
+
+## Extension
+Your task is to write a function which takes a number and calculates the nth Fibonnaci number using the iterative method.
+
+<CodeBlock client:load>
+```cpp
+unsigned long long fibonacci(int n) {
+    // Handle the base cases
+    if (n == 0) return 0;
+    if (n == 1) return 1;
+
+    // Initialize the first two Fibonacci numbers
+    unsigned long long a = 0;
+    unsigned long long b = 1;
+    unsigned long long fib = 0;
+
+    // Calculate the nth Fibonacci number iteratively
+    for (int i = 2; i <= n; i++) {
+        fib = a + b;
+        a = b;
+        b = fib;
+    }
+
+    return fib;
+}
+```
+</CodeBlock>

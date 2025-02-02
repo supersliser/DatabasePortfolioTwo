@@ -4,14 +4,15 @@ h1, h2, h3, h4, h5, h6, blockquote a {
 }
 
 blockquote {
-    background-color: rgba(255, 255, 255, 0.075);
+    background-color: #353459;
     border-radius: 20px;
     font-size: 1.1rem;;
     width: 40%;
     margin-left: 30%;
-    margin-top: 0%;
-    margin-bottom: 0%;
-    color: rgba(255, 255, 255, 0.5)
+    padding-top: 0.5vh;
+    padding-bottom: 0.5vh;
+    color: white;
+    text-align: center;
 }
 
 p {
@@ -31,7 +32,7 @@ body {
   overflow-x: hidden;
   width: 100vw;
   box-sizing: border-box; /* Add this line */
-  background-color: rgba(0,0,0,0);
+  background-color: #0F0F26;
 }
 
 main {
@@ -41,7 +42,7 @@ main {
 }
 
 a {
-    color: #ff00ff;
+    color: #F2D22E;
     text-decoration: none;
 }
 
