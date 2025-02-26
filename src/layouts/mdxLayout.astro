@@ -26,8 +26,8 @@ let hasLogo = frontmatter.logo !== undefined;
     <meta name="generator" content={Astro.generator} />
     <title>{frontmatter.title + " | Thomas Lower Database Portfolio"}</title>
   </head>
-  <body>
-    <PageDirectory
+  <body style="margin: 0; padding: 0; font-family: 'Exo 2', system-ui;">
+    <PageDirectory 
       projects={projects}
       fullSize={false}
       hasLogo={hasLogo}
