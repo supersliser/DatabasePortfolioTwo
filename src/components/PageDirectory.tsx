@@ -59,7 +59,7 @@ export default function pageDirectory({ projects, fullSize, hasLogo }: { project
   }
 
   return (
-    <div style={{ width: "100%", position: "absolute", top: "0", left: "0", margin: 0, padding: 0}}>
+    <div style={fullSize ? { width: "100%", margin: 0, padding: 0} : { width: "100%", position: "absolute", top: "0", left: "0", margin: 0, padding: 0}}>
       {!showOrderBy ? null : <ul style={{ zIndex: "10000", position: "relative", top: "50px", left: "10%", width: "80%", height: "100%", overflowY: "auto", backgroundColor: "#0F0F26", color: "#ffffff", borderColor: "#ffffff", borderWidth: "1px", borderStyle: "solid", display: "flex", justifyContent: "start", alignItems: "center", flexDirection: "column" }}>
         <button key={"Title"} onClick={() => setOrderByUtility("Title")} style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", width: "80%", color: "#ffffff", fontFamily: 'Expletus Sans Variable', marginTop: "20px", marginBottom: "20px", marginLeft: "10%", marginRight: "10%" }}>Title</button>
         <button key={"Date"} onClick={() => setOrderByUtility("Date")} style={{ backgroundColor: "rgba(255, 255, 255, 0.1)", padding: "10px", width: "80%", color: "#ffffff", fontFamily: 'Expletus Sans Variable', marginTop: "20px", marginBottom: "20px", marginLeft: "10%", marginRight: "10%" }}>Date</button>
