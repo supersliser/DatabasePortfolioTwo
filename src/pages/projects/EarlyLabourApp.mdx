@@ -1,0 +1,158 @@
+---
+layout: ../../layouts/mdxLayout.astro
+title: Early Labour App
+tags: [
+Team, Unity, C#, Mobile App, Research Project
+]
+created: 2024-06-01
+authors: [
+Thomas Lower,
+Dr. Dominique Mylod,
+Dr. Kun Qian,
+Kaisei Wieczorek-Numao,
+Carys Nash
+]
+logo: bu.png
+hidden: false
+---
+
+This was a research project for Bournemouth University, funded by the National Institute for Health Research (NIHR).
+
+The goal of this project was to create an app which could provide information
+and assistance to both women experiencing early labour as well as their birth
+partners. The constraints of the project were that the information had to be
+easily accessible in times of crisis and be accessible to as many people as possible
+
+## Development
+
+### Expected Features
+
+The Early Labor App was expected to have the following features:
+- [A questionnaire to guide users to other sections of the app based on their pain level.](#Guiding-based-on-pain-level)
+- [A section containing an organised catalogue of pre-written chapters providing information regarding the early labour experience.](#Providing-Information-and-Education)
+- A section containing birth ball videos which would guide a user on the effective use of a birth ball.
+- [A section containing an animated graphic to demonstrate a breathing excersise.](#Breathing-Exercise)
+- [A user-logging system to track time spent on each section.](#Accessibility)
+- [Artificial Intelligence Avatars to guide users around the app.](#Avatars)
+- [Language Localisation.](#Accessibility)
+- [Verbal Interaction features.](#Accessibility)
+- [Rewarding users for app usage.](#Rewards-Section)
+
+### Accessibility
+
+The goal of accessibility was relatively easily addressed. Since it is safe to assume
+that most people will have access to a mobile phone, the app could be made
+to target phones. However, the project was limited by financial constraints and
+access to X-Code compiler which led to development being stuck to android
+devices.
+
+However, the use of mobile phones often has a few assumptions which must
+be addressed. Primarily, a mobile phone is usually assumed to be connected
+to the internet. Without this connection, it loses most of its functionality.
+Therefore, the app must not be reliant upon an internet connection. Fortunately,
+this was of little concern as much of the information was known well by Dr.
+Mylod who was therefore able to provide all required information beforehand
+so that it could be hard-coded into the app, thus circumventing the need for an
+internet connection.
+
+Internet connection was used in one other part of the app however. A re-
+quested feature of the prototype app was for it to log user interactions with
+it and export these to an external data source. This, obviously, would require
+internet with no real way to get around it. Therefore, a more heuristic approach
+was taken. While in an emergency the user may not have direct access to the
+app, it can be assumed that they will likely use the app while in a location in
+which they do have an internet connection at some point (most likely a hospital
+or at home). As such, if data that is meant to be exported can be kept locally,
+then when the app attempts to export data, it checks for any other data that
+should be uploaded first, and uploads that to the external data source.
+
+Another consideration of accessibility is that of language. Within the UK,
+English is not the only spoken language, with the percentage of people who
+would place english as a second language or non-native language reaching as
+high as 35% in densely populated areas.
+As a result of this data, it was essential to ensure that language would not be
+an issue to the app. Has internet been an available option during run-time, this
+would have been an easy fix as a realtime translation package could simply be
+applied to all text. However, this was not the case. The app had to be able to
+function without an internet connection, this therefore required languages to be
+hard-coded into the app. Translation was achieved using Google Translate and
+the languages French, Spanish and Japanese were chosen. These were chosen
+for the purposes of easy translation in the case of French and Spanish, and to
+test the capabilities of Non-Latin Characters in the case of Japenese.
+
+Of course, this language was only important if it could be assumed that our
+user had strong vision, but this was not always the case. Therefore, the app
+features 1 word interactions using a local version of OpenAI’s Whisper. This would allow a user with visual impairments to speak their
+commands to the app, rather than relying on being able to see the buttons they
+would otherwise have to press.
+
+### Guiding based on pain level
+
+The app required the ability for a user to fill out a simple questionnaire, which
+would provide a score referring to the users current level of pain severity. Based
+on the score that was given, they could then be guided to certain sections of the
+app. This was established using a simple 5 point scale on each question and a
+running total. Each question could give a score between 0 - 4, This means that
+the score could be a value between 0 - 20.
+
+### Providing Information and Education
+
+The information provided was stored in separate chapters based on topic and
+intended audience, they covered a range of topics such as: how to deal with
+pain, what a birth partner can do during early labour and the experiences of
+other women during pregnancy. These were stored in scrollable pages and had
+videos placed adjacent to the text to supplement the information. An important
+challenge with this is maintaining formatting with localized languages as the size
+of words - and by extension paragraphs will change, this therefore required items
+to be dynamically assigned their location based on the current language of the
+device.
+
+### Breathing Exercise
+
+The breathing exercises are intended to be in time with a graphic which would
+loop every 5 seconds. The graphic itself is controlled using a scaled sin() graph
+as this would allow it to theoretically loop infinitely. In review, however, it was
+requested that the process completes after 10 minutes, after which the user is
+sent back to the main menu of the app.
+
+### Avatars
+
+For the purposes of testing, the avatars were static videos generated using arti-
+ficial intelligence models. Two were using for generating these videos:
+- Synthesia
+- Live Portrait
+Synthesia was used to generate an initial video and audio. This model is
+able to take a script and an avatar image (from a list of selections) and generate
+a video of the avatar appearing to speak with accompanying audio in time with
+the movements of the avatar.
+
+Live Portrait was then used to enhance these videos, this model takes a
+driving motion video and a still image. It then takes the still image, identifies
+the primary face on the image and translates the movement from the driving
+video to the still image, producing a video in the end.
+
+### Rewards Section
+
+Every section of the app features a small star mechanic, this keeps updated with
+the time spend in a certain section of the app during a particular day. This is
+kept procedurally between app usage and uploaded to the user logging system.
+The data gathered is then displayed to users in 1 of 2 possible formats, both
+symbolized as stars.
+
+- A maximum of 3 stars where:
+    - 1 star = 1 minute
+    - 2 stars = 2 minutes
+    - 3 stars = 3 minutes
+- A maximum of 7 stars where:
+    - 1 star = 10 seconds
+    - 2 stars = 20 seconds
+    - 3 stars = 30 seconds
+    - 4 stars = 1 minute
+    - 5 stars = 2 minutes
+    - 6 stars = 5 minutes
+    - 7 stars = 10 minutes
+
+The stars are constant meaning that they do not fill up linearly with time
+spent, they only fill up fully when the next threshold has been met (if using the
+7-star system, if the user has only spent 3 minutes in the section then they will
+have 5 full stars).
